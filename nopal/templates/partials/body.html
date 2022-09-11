@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'img/icon.png' %}">
+    <link rel="stylesheet" href=" {% static 'css/bootstrap/style.css' %} ">
+    <link rel="stylesheet" href="{% static 'css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'datatable/Bootstrap-5-5.1.3/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'datatable/DataTables-1.12.1/css/dataTables.bootstrap5.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'datatable/Buttons-2.2.3/css/buttons.bootstrap5.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'datatable/SearchBuilder-1.3.3/css/searchBuilder.bootstrap5.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'datatable/Responsive-2.3.0/css/responsive.bootstrap5.min.css' %}">
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap/swiper-bundle.min.css' %}"> 
+
+    <title>{% block title %}
+
+    {% endblock %}</title>
+</head>
+<body data-dark>
+    {% include "partials/header.html" %}
+    {% include 'modals/m-help.html' %}
+
+
+    {% block contenido %}
+    {% include "modals/modal.html" %}
+    {% endblock %}
+    
+    {% include 'partials/footer.html' %}
+
+    {% if messages %}
+        {% for message in  messages %}
+            <script>
+                const toastLiveSuccess = document.getElementById('{{message.tags}}')
+                  if (toastLiveSuccess) {
+                        const toast = new bootstrap.Toast(toastLiveSuccess)
+                        toast.show()
+                    }
+                    const toastLiveExample4 = document.getElementById('liveToast4')
+                    if (toastLiveExample4) {
+                        const toast = new bootstrap.Toast(toastLiveExample4)
+                        toast.show()
+                    }
+            </script>
+        {% endfor %}    
+    {% endif %}
+     
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
+    {% block extrajs %}
+    {% comment %} Para hacer filtro de buscador general {% endcomment %}
+
+    <script type="text/javascript" src="{% static 'js/filtrar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/modal-status.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/accesibilidad.js' %}"></script>
+
+    {% comment %} Para subcategorias {% endcomment %}
+    <script type="text/javascript" src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+    
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/tabla.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <script type="text/javascript" src=" {% static 'js/factura.js' %}"></script>
+    <script type="text/javascript" src=" {% static 'js/mostrarproductos.js' %}"></script>
+   
+    <script type="text/javascript" src="{% static 'datatable/datatables.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'datatable/JSZip-2.5.0/jszip.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/pdfmake-0.1.36/pdfmake.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/pdfmake-0.1.36/pdfmake.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'datatable/pdfmake-0.1.36/vfs_fonts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/DataTables-1.12.1/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/DataTables-1.12.1/js/dataTables.bootstrap5.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/Buttons-2.2.3/js/dataTables.buttons.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/Buttons-2.2.3/js/buttons.bootstrap5.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/Buttons-2.2.3/js/buttons.colVis.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/Buttons-2.2.3/js/buttons.html5.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/Buttons-2.2.3/js/buttons.print.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/Responsive-2.3.0/js/dataTables.responsive.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/Responsive-2.3.0/js/responsive.bootstrap5.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/SearchBuilder-1.3.3/js/dataTables.searchBuilder.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'datatable/SearchBuilder-1.3.3/js/searchBuilder.bootstrap5.min.js' %}"></script>
+    {% endblock extrajs %}
+</body>
+</html>

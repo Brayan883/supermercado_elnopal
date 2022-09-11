@@ -1,0 +1,69 @@
+{% extends 'partials/body.html' %} 
+{% load crispy_forms_tags %}
+{% load static %}
+{% block contenido %}
+
+<div id="fondo_cuerpo">
+        <section class="container bg-white p-5 h-auto" style="width: 95%">
+            <h1>Copias de seguridad</h1>
+            <div class="row my-4">
+
+            <form action="{% url 'backup' %}" method="POST">
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <!-- <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" name="modelos_lista" value="Todo" id="">
+                        <label class="form-check-label" for="modelos_lista">Todo</label>
+                    </div> -->
+                    {% for modelo in ficheros %}
+                    <div class="mb-3 "> 
+                        <a href="{% url 'backup' %}/{{modelo}}">{{modelo}}</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <input type="submit" value="Generar Copia">
+            </form>
+            <div class="col-md-4">
+                <div class="border bg-white p-3 rounded shadow mt-3">
+                    <h3 class="text-start">Importar </h3>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{form|crispy}}
+                        <input type="hidden" name="modal-status" id="modal-status" value=" {{modal_status}} ">
+                        <button class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
+                        style="width: 120px;" name="f-create">Enviar</button>
+
+                    </form>
+                </div>
+            </div>
+    
+        <div class="col-md-8">
+            <table id="tabla" class="display table table-striped table-hover text-nowrap mt-3" style="width:100%">
+                <thead style="background-color: var(--verde); color: var(--verdeoscuro);">
+                    <tr>
+                        {% for field in fields %}
+                            <th scope="col">{{field.title}}</th>
+                        {% endfor %}
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Archivo</th>
+                        <th scope="col">Fecha</th>                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for register in registers %}
+                    <tr>
+                        <td>{{register.name}} </td>
+                        <td>{{register.file.url}} </td>
+                        <td>{{register.date}} </td>        
+                        
+        
+                    </tr>
+                    {% endfor%}
+                </tbody>
+            </table>
+            </div>
+        </section>
+        </div>
+
+{% endblock contenido %}
