@@ -1,10 +1,11 @@
 {% extends 'partials/body_login.html' %}
+{% load crispy_forms_tags %}
 {% block title %}{{titulo_pagina}} - INICIAR SESION{% endblock title %}
 {% load static %}
 {% block contenido %}
 <div class="contenedor_mayor">
     <div class="ve_inicio">
-        <div class="contenedor_inicio0">
+        <div class="contenedor_inicio0 ">
             <figure class="p-0">
                 <img class="img-fluid" src="{% static 'img/Logo.png' %}" alt="">
             </figure>
@@ -21,9 +22,9 @@
                 <div class="opciones_iniciosesion">
                     <a class="hvinculo_inicio" href="{% url 'password-reset' %}">Olvidé mi contraseña</a>
                 </div>
-                {% comment %} <a href="{% url 'index-admin' %}"><input type="submit" value="Iniciar sesión" class="btn_inicio0"></a> {% endcomment %}
+                <a href="{% url 'index-admin' %}"><input type="submit" value="Iniciar sesión" class="btn_inicio0"></a>
             </form>
-
+                </div>
         </div>
     </div>
 </div>

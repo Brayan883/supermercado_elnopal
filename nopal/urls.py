@@ -24,7 +24,15 @@ urlpatterns = [
     path('g-contabilidad/', include('management.urls')),
     
     
-     #  # Logueo
+    #  # Logueo
     path('admin-login/', auth_views.LoginView.as_view(template_name='login/login.html'), name='admin-login'),
     path('admin-logout/', auth_views.LogoutView.as_view(), name='admin-logout'),
+    
+    #recuperacion
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='login/password-email.html',email_template_name='login/password_reset_email.html'),
+         name='password-reset'),
+    path('reset_password_send/', auth_views.PasswordResetDoneView.as_view(template_name='login/password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='login/new-password.html'), name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='login/account-recovery.html'), name='password_reset_complete'),
+
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
