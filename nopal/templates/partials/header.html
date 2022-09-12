@@ -99,7 +99,11 @@
                         <ul class="menu__nesting">
                         {% for sub in MENU_USER_SUBCATEGORIA %}
                             {% if sub.category_id == category.id %}
-                                <li  class="menu__inside"><a class="menu__link menu__link--inside"  href=""> {{sub.name}}</a></li>
+                                <form action="" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="{{category.id}}">                                       
+                                    <li class="menu__inside"><button class="menu__link menu__link--inside" type="submit" style="border: none !important; outline: none;">{{sub.name}}</button></li>
+                                </form>
                             {% endif %}
                         {% endfor %}
                         </ul>
