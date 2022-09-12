@@ -102,7 +102,7 @@
                                 <form action="" method="POST">
                                     {% csrf_token %}
                                     <input type="hidden" name="{{category.id}}">                                       
-                                    <li class="menu__inside"><button class="menu__link menu__link--inside" type="submit" style="border: none !important; outline: none;">{{sub.name}}</button></li>
+                                    <li class="menu__inside"><button class="menu__link menu__link--inside"  type="submit" style="border: none !important; outline: none;">{{sub.name}}</button></li>
                                 </form>
                             {% endif %}
                         {% endfor %}
