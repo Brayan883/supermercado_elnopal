@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-%*ry=*c05p5!qs*_(4_oktldi@9jfrr17*(uz702rx1dd5i$t3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,9 +88,9 @@ WSGI_APPLICATION = 'nopal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_elnopal3',
+        'NAME': 'db_elnopal4',
         'USER':'root',
-        'PASSWORD':'',
+        'PASSWORD':'JuliethRojas123.',
         'HOST':'localhost',
         'PORT':'3306'
     }

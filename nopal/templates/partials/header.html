@@ -11,8 +11,6 @@
                 <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);" href="{% url 'admin-login' %}"><figure class="d-flex flex-column px-4">
                     <img src="{% static 'img/icons/user.svg'%}" id="user" class="mx-auto d-block" width="45" alt="Administrador">
                     <a class="text-decoration-none" href="{% url 'admin-login' %}" id="texto">{{user.get_username}}</a>
-
-                    {% comment %} <a class="text-decoration-none" href="{% url 'admin-login' %}" id="texto">Iniciar sesión</a> {% endcomment %}
                 </figure></a>
                 <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);"  href="{% url 'inicio' %}"><figure class="d-flex flex-column align-items-center px-4">
                     <img src="{% static 'img/icons/exit.svg' %}" id="salir" class="mx-auto d-block" width="45" alt="Salir">
