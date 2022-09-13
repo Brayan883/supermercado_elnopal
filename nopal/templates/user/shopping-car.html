@@ -24,12 +24,12 @@
                         <div class="col-md-7 border d-flex align-items-center">
                             <div class="card-body">
                                 <div class="w-100 d-flex justify-content-between">
-                                    <span class="fs-5 " id="nombre_producto" >{{value.name}}</span> 
+                                    <span class="fs-5 " id="nombre_producto" >{{value.nombre}}</span> 
                                     <div class=" d-flex align-items-center">  
                                         <a href="{% url 'restar_producto' value.producto_id   %}" class="btn btn-sm  me-1 text-light " style="background-color: #223016;" >-</a>   
-                                        <span class=" badge bg-success " style="font-size:18px !important" >{{value.cantidad}}</span> <a href="{% url 'agregar_producto_carrito' value.producto_id   %}" class="btn btn-sm  ms-1 text-light"  style="background-color: #223016;">+</a>  
+                                        <span class=" badge bg-success " style="font-size:18px !important" id="nombre_cantidad" >{{value.cantidad}}</span> <a href="{% url 'agregar_producto_carrito' value.producto_id   %}" class="btn btn-sm  ms-1 text-light"  style="background-color: #223016;">+</a>  
                                     </div> 
-                                        <span class="fs-5" id="nombre_precio">{{value.price|floatformat}}</span>
+                                        <span class="fs-5" id="nombre_precio">{{value.precio|floatformat}}</span>
                                 </div>
                             </div>
                         </div>
