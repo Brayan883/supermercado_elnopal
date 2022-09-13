@@ -6,15 +6,13 @@ from django.contrib import messages
 from nopal.carrito import Carro
 
 # Create your views here.
-
-
 def index_user(request):
     title_pag="Inicio"
     products = Product.objects.all()
     categories= Subcategory.objects.all()
     if request.method == "POST":                                                                    
         ids =  list(request.POST)[1]                                                                    
-        categories= Subcategory.objects.all().filter(category= ids)
+        # categories= Subcategory.objects.all().filter(category= ids)
         products = Product.objects.all().filter(subcategory_id = ids)
         print('aknsjnajsnjnajsnajnsjnjansjnas' , ids )
     context={
