@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_elnopal3',
         'USER':'root',
-        'PASSWORD':'0000',
+        'PASSWORD':'',
         'HOST':'localhost',
         'PORT':'3306'
     }
@@ -127,14 +127,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'nopal\static'
 ]
-
 
 FIXTURE_DIRS= [
     os.path.join(BASE_DIR, "nopal/static/backup")

@@ -54,7 +54,7 @@ class Product(models.Model):
         kilogram ='kilogram', _('Kg')
     unitMeasurement = models.CharField(max_length=30, choices=UMeasurement.choices, default=UMeasurement.unit, verbose_name="Unidad de medida")
     stock = models.PositiveIntegerField(validators=[MinValueValidator(1)], blank=False, null=True)
-    image = models.ImageField(upload_to='product', null=True, verbose_name=u"Imagen", default='product/Logo.png')
+    image = models.ImageField(upload_to='product', verbose_name=u"Imagen", default='product/Logo.png')
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return ' %s' %(self.name)
