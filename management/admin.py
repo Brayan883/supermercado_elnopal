@@ -1,5 +1,5 @@
 from django.contrib import admin
-from management.models import Brand, Buy, Category, DetailBuy, DetailSale, Product, Provider, Sale, Subcategory
+from management.models import *
 from personal.models import User
 
 # Register your models here.
@@ -12,4 +12,3 @@ admin.site.register(DetailBuy)
 admin.site.register(Sale)
 admin.site.register(DetailSale)
 admin.site.register(Provider)
-admin.site.register(User)

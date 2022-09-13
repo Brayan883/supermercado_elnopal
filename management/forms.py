@@ -5,55 +5,101 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name']
+        widgets = {
+            'name':forms.TextInput(attrs={'class':'form-control'})
+        }
         
 class SubcategoryForm(forms.ModelForm):
     class Meta:
         model = Subcategory
-        fields = ['name','category','image']        
+        fields = ['name','category','image']
+        widgets = {
+            'name':forms.TextInput(attrs={'class':'form-control'}),
+            'category':forms.Select(attrs={'class':'form-control'}),
+            'image':forms.FileInput(attrs={'class':'form-control'})
+        }     
 
 class BrandForm(forms.ModelForm):
     class Meta:
         model = Brand
         fields = ['name']
+        widgets = {
+            'name':forms.TextInput(attrs={'class':'form-control'})
+        }
 
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name','price','subcategory','brand','expirationDate','unitMeasurement','stock','image']
+        fields = ['name','price','subcategory','brand','expirationDate','unitMeasurement','stock','image','description']
         widgets = {
+            'name':forms.TextInput(attrs={'class':'form-control'}),
+            'price':forms.NumberInput(attrs={'class':'form-control'}),
+            'description':forms.Textarea(attrs={'class':'form-control'}),
+            'subcategory':forms.Select(attrs={'class':'form-control'}),
+            'brand':forms.Select(attrs={'class':'form-control'}),
             'expirationDate':forms.DateInput(format=(' %m/%d/%Y'),
                                     attrs={'class':'form-control',
                                             'placeholder':'Seleccione la fecha de vencimiento',
-                                            'type':'date'})
+                                            'type':'date'}),
+            'unitMeasurement':forms.Select(attrs={'class':'form-control'}),
+            'stock':forms.NumberInput(attrs={'class':'form-control'}),
+            'image':forms.FileInput(attrs={'class':'form-control'})            
         }
 
 class ProviderForm(forms.ModelForm):
     class Meta:
         model = Provider
         fields = ['name','phone','email']
+        widgets = {
+            'name':forms.TextInput(attrs={'class':'form-control'}),
+            'phone':forms.NumberInput(attrs={'class':'form-control'}),
+            'email':forms.EmailInput(attrs={'class':'form-control'})
+        }
         
 class BuyForm(forms.ModelForm):
     class Meta:
         model = Buy
         fields =['provider','payment']
+        widgets = {
+            'provider':forms.Select(attrs={'class':'form-control'}),
+            'payment':forms.Select(attrs={'class':'form-control'})
+        }
         
 class DetailBuyForm(forms.ModelForm):
     class Meta:
         model = DetailBuy
-        fields=['buy','product','amount']
+        fields = ['buy','product','amount']
+        widgets = {
+            'buy':forms.Select(attrs={'class':'form-control'}),
+            'product':forms.Select(attrs={'class':'form-control'}),
+            'amount':forms.NumberInput(attrs={'class':'form-control'})
+        }
     
 class SaleForm(forms.ModelForm):
     class Meta:
         model = Sale
-        fields=['employee','typeSale','payment']
+        fields=['user','typeSale','payment']
+        widgets = {
+            'user':forms.Select(attrs={'class':'form-control'}),
+            'typeSale':forms.Select(attrs={'class':'form-control'}),
+            'payment':forms.Select(attrs={'class':'form-control'}),
+        }
         
 class DetailSaleForm(forms.ModelForm):
     class Meta:
         model = DetailSale
         fields =['sale','product','amount']
-
+        widgets = {
+            'sale':forms.Select(attrs={'class':'form-control'}),
+            'product':forms.Select(attrs={'class':'form-control'}),
+            'amount':forms.NumberInput(attrs={'class':'form-control'})
+        }
      
 class BackupForm(forms.ModelForm):
     class Meta:
         model = Backup
-        fields= ['name','file']
+        fields = ['name','file']
+        widgets = {
+            'name':forms.TextInput(attrs={'class':'form-control'}),
+            'file':forms.FileInput(attrs={'class':'form-control'})
+        }

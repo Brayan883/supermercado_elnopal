@@ -4,20 +4,19 @@
 {% load static %}
 {% block contenido %}
 <div id="fondo_cuerpo">
-    <section class="container bg-white p-5 h-auto rounded" data-admin id="cuerpo" style="width: 95%">
+    <section class="container bg-white p-5 h-auto" data-admin id="cuerpo" style="width: 95%">
         <h1>Gestionar {{title_pag}}</h1>
         <div class="row my-4">
             <div class="col-md-4">
-                <div class="border bg-white p-3 rounded shadow" id="mode-cards">
+                <div class="border bg-white p-3 rounded shadow mt-3" id="mode-cards">
                     <h3 class="text-start">Nuevo Registro </h3>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form|crispy}}
-                        <div class="form-group mt-2">
-                            <button type="submit"
-                                class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
-                                style="width: 120px;">Agregar</button>
-                        </div>
+                        <input type="hidden" id="modal-status" value="Agregar">
+                        <button class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
+                        style="width: 120px;" >Agregar</button>
+
                     </form>
                 </div>
             </div>
@@ -25,30 +24,28 @@
                 <table id="tabla" class="display table table-striped table-hover text-nowrap mt-3" style="width:100%">
                     <thead style="background-color: var(--verde); color: var(--verdeoscuro);">
                         <tr>
-                            {% for field in fields %}
-                                <th scope="col">{{field.title}}</th>
-                            {% endfor %}
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Correo Electrónico</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        
-                        {% for register in registers %}
-                        {% if register.status %}
-                        <tr>
-                            <td>{{register.name}}</td>
-                            <td>{{register.phone}}</td>
-                            <td>{{register.email}}</td>
 
-                            <td>
-                                <a href="{%url 'editar' register.id %}" class="btn btn-md border"><img class="img-fluid " src=" {% static 'img/icons/update.svg' %} " alt=""></a>
-                                <a href="{%url 'eliminar' register.id %}" class="btn btn-md border"><img class="img-fluid " src=" {% static 'img/icons/delete.svg' %}" alt=""></a>
-                                <a href="" class="btn btn-md border"><img class="img-fluid " src=" {% static 'img/icons/eye.svg' %}" alt=""></a>
-                            </td>
-                        </tr>
-                        {% endif %}
-                        {% endfor %}
-                    </tbody>
+                    <tbody>
+                    {% for register in registers %}
+                            {% if register.status %}
+                                <tr>
+                                    <td>{{register.name}}</td>
+                                    <td>{{register.phone}}</td>
+                                    <td>{{register.email}}</td>
+                                    <td><a href="{%url 'provider-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
+                                        <a href="{%url 'provider-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a> 
+                                    </td>    
+                                </tr>
+                            {% endif %}
+                    {% endfor %}
+                    </tbody> 
+
                 </table>
                 {% if messages %}
                 {% for message in messages %}
@@ -63,5 +60,6 @@
         </div>
     </section>
 </div>
+
 {% include 'partials/accesibilidad.html' %}
 {% endblock %}

@@ -1,24 +1,27 @@
 {% load crispy_forms_tags %}
-<div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true">
+{% load static %}
+
+<div class="modal fade show" id="exampleModal" tabindex="-1" aria-labelledby="mainModalLabel" aria-hidden="true" role="dialog" style="display: block;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mainModalLabel">{{ modal_title.title }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel">{{modal_title}}</h5>
+                <a href="{{url_back}}"><button class="btn-close"
+                    data-bs-dismiss="modal" href="{{url_back}}" aria-label="Close"></button></a>
             </div>
             <div class="modal-body">
+                <p>¿Está seguro de {{modal_txt}} "{{register_id}}"?</p>
+                {% if modal == 'editar' %}
                 <form method="POST">
-                <p>¿Está seguro de {{ modal_txt }}?</p>
-                {{form|crispy}}
+                    {{form|crispy}}{% csrf_token %}
+                {% endif %}
             </div>
             <div class="modal-footer">
-                    {% csrf_token %}
-                    <input type="hidden" name="type_m" value="{{type_m}}">
-                    <input type="hidden" name="modal-pk" value="{{pk}}">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button name="modal-confirm" class="btn btn-success" >{{ modal_submit }}</button>
-                </button>
+                <a href="{{url_back}}"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></a>
+                <button type="submit" class="btn btn-success">{{modal_submit.title}}</button>
+            </div>
             </form>
         </div>
     </div>
 </div>
+<div class="modal-backdrop fade show"></div>

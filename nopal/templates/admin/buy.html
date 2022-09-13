@@ -1,66 +1,73 @@
 {% extends 'partials/body.html' %}
 {% load crispy_forms_tags %}
-{% block title %}Nueva Compra{% endblock title %}
+{% block title %}{{title_pag}} {% endblock title %}
 {% load static %}
 {% block contenido %}
 
 <div id="fondo_cuerpo">
-    <section class="container bg-white p-5 h-auto" style="width: 95%">
+    <section class="container bg-white p-5 h-auto" data-admin id="cuerpo" style="width: 95%">
         <h1>Gestionar {{title_pag}}</h1>
-    <div class="row mb-4 mt-1" >
-            <div class="col-12 col-lg-4 my-3" >
-                <div class="border p-3 rounded shadow" id="mode-cards">
-                    <h3 class="text-align-center">Nueva {{title_pag}}</h3>
-                    <form action="" method="POST" enctype="multipart/form-data" >
+        <div class="row my-4">
+            <div class="col-md-4">
+                <div class="border bg-white p-3 rounded shadow mt-3" id="mode-cards">
+                    <h3 class="text-start">Nuevo Registro </h3>
+                    <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{form|crispy}}
-                        <div class="form-group mt-2" >
-                            <button type="submit" class="btn_agregar">Agregar</button>
-                        </div>
+                        <input type="hidden" id="modal-status" value="Agregar">
+                        <button class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
+                        style="width: 120px;" >Agregar</button>
+
                     </form>
                 </div>
             </div>
-            <div class="col-12 col-lg-8" >
+            <div class="col-md-8">
                 <table id="tabla" class="display table table-striped table-hover text-nowrap mt-3" style="width:100%">
-                    <thead style="background-color: var(--verde); color: var(--verdeocuro);">
+                    <thead style="background-color: var(--verde); color: var(--verdeoscuro);">
                         <tr>
                             <th scope="col">Fecha</th>
-                            <th scope="col">Proveedor</th>
+                            {% if buy %}
+                                <th scope="col">Proveedor</th>
+                            {% else %}
+                                <th scope="col">Proveedor</th>
+                            {% endif %}
                             <th scope="col">Método de Pago</th>
+                            <th scope="col">Estado</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
-                   <tbody>
-                        {% for buy in buys %}
-                        {% if buy.status == 'Activo'%}
-                            <tr>
-                                    <td>{{buy.name}}</td>
-                                    <td>{{buy.provider}}</td>  
-                                    <td>{{buy.payment}}</td>
-                                                            
-                                <td>
-                                    {% comment %} <a href="{%url 'editar-compra' buy.id%}" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/update.svg' %} " alt=""></a> {% endcomment %}
-                                    <a href="" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/eye.svg' %} " alt=""></a>
-                                    {% comment %} <a href="{%url 'eliminar-compra' buy.id%}" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/delete.svg' %}" alt=""></a>  {% endcomment %}
-                                </td>
-                            </tr>
+
+                    <tbody>
+                    {% for register in registers %}
+                            {% if register.status %}
+                                <tr>
+                                    <td>{{register.date}}</td>
+                                    <td>{{register.user}}</td>
+                                    <td>{{register.payment}}</td>
+                                    <td>{{register.satus}}</td>
+                                    <td><a href="{%url 'buy-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
+                                        <a href="{%url 'buy-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>
+                                        <a href="{%url 'detail-buy' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/eye.svg' %}" alt=""></a> 
+                                    </td>    
+                                </tr>
                             {% endif %}
-                        {% endfor %}
-                   </tbody>
+                    {% endfor %}
+                    </tbody> 
+
                 </table>
                 {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                            <strong>{{ message }}</strong> 
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
+                {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    <strong>{{ message }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
                 {% endif %}
 
             </div>
-    </div>
-</section>
-
+        </div>
+    </section>
 </div>
+
 {% include 'partials/accesibilidad.html' %}
  {% endblock %}
