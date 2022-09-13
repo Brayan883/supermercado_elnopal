@@ -8,25 +8,26 @@
   <figure class="m-auto" ><img src="{% static 'img/icons/help.svg' %}" id="ayuda" data-bs-toggle="modal" data-bs-target="#modalAyuda" alt="Ayuda"></figure>
 </div>
 <section>
-  <div class="containerS">
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-container mySwiper">
-      <div class="swiper-wrapper">
+  <div class="container3">
+    <div class="glider-contain col-xl-15 " id="glider-{{subcategory.id}}">
+      <div class="glider-cat-1 glider">
         {% for sub in categories %}
-        <div class="swiper-slide">
-          <img src="{{sub.image.url}}" style="height:200px;" alt="">
+          <img src="{{sub.image.url}}"  style="height:200px;"  alt="...">
           <div class="card-description">
             <form action="" method="POST">
               {% csrf_token %}
               <input type="hidden" name="{{sub.id}}">
               <button class="card-title text-decoration-none"  type="submit" style="border: none !important; outline: none; color: var(--verdeoscuro) !important; background: none !important; padding: 5px 15px !important; " >{{sub.name}}</button>
-          </form>
-          </div>
-        </div>
+          
+      	    </form>
+	</div>
         {% endfor %}
       </div>
-    </div>
+      <button class="glider-prev"><i class="fas fa-chevron-circle-left"></i></button>
+      <button class="glider-next"><i class="fas fa-chevron-circle-right"></i></button>
+
+ 
+</div>
   </div>
   <div class="container border border-dark mb-3 d-flex justify-content-center flex-wrap" id="mode-cards" id="myDIV" id="contenedor__productos" >
     {% for product in products %}
