@@ -85,7 +85,7 @@ def subcategory_modal(request, modal, pk):
     modal_title = ''
     modal_txt = ''
     modal_submit = ''
-    url_back="/administracion/subcategoria/"
+    url_back="/g-contabilidad/subcategoria/"
     registers = Subcategory.objects.all()
     register_id = Subcategory.objects.get(id=pk)
     if modal == 'eliminar':
@@ -248,7 +248,7 @@ def brand_modal(request, modal, pk):
     location = True
     admin = True
     modal_submit = ''
-    url_back="/administracion/marca/"
+    url_back="/g-contabilidad/marca/"
     registers = Brand.objects.all()
     register_id = Brand.objects.get(id=pk)
     if modal == 'eliminar':
@@ -331,7 +331,7 @@ def product_modal(request, modal, pk):
     location = True
     admin = True
     modal_submit = ''
-    url_back="/administracion/producto/"
+    url_back="/g-contabilidad/producto/"
     registers = Product.objects.all()
     register_id = Product.objects.get(id=pk)
     if modal == 'eliminar':
@@ -414,7 +414,7 @@ def provider_modal(request, modal, pk):
     admin = True
     modal_txt = ''
     modal_submit = ''
-    url_back="/administracion/proveedor/"
+    url_back="/g-contabilidad/proveedor/"
     registers = Provider.objects.all()
     register_id = Provider.objects.get(id=pk)
     if modal == 'eliminar':
@@ -497,7 +497,7 @@ def user_modal(request, modal, pk):
     location = True
     admin = True
     modal_submit = ''
-    url_back="/administracion/usuario/"
+    url_back="/g-contabilidad/usuario/"
     registers = User.objects.all()
     register_id = User.objects.get(id=pk)
     if modal == 'eliminar':
@@ -583,7 +583,7 @@ def buy_modal(request, modal, pk):
     location = True
     admin = True
     modal_submit = ''
-    url_back="/administracion/compra/"
+    url_back="/g-contabilidad/compra/"
     registers = Buy.objects.all()
     register_id = Buy.objects.get(id=pk)
     detail = DetailBuy.objects.get(buy=pk)
@@ -788,7 +788,7 @@ def sale_modal(request, modal, pk):
     location = True
     admin = True
     modal_submit = ''
-    url_back="/administracion/venta/"
+    url_back="/g-contabilidad/venta/"
     registers = Sale.objects.all()
     register_id = Sale.objects.get(id=pk)
     detail = DetailSale.objects.get(sale=pk)
@@ -947,13 +947,13 @@ def detail_sale(request, pk):
 def export_data():
     date_now = date.today()
     print('JUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEPUTA')
-    os.system(f"mysqldump --add-drop-table --column-statistics=0 --password=Angie1053442155 -u root db_elnopal> nopal/static/backup/BKP_{date_now}.sql")
+    os.system(f"mysqldump --add-drop-table --column-statistics=0 --password=JuliethRojas123. -u root db_elnopal> nopal/static/backup/BKP_{date_now}.sql")
     print('-------------------------------------------------------Hecho')
 def import_data(file):
     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LISTO PA´ IMPRIMIR')
     try:
         print('------------------------IMPORTAR')
-        os.system(f"mysql --password=Angie1053442155 -u root db_elnopal < {file[1:]}")
+        os.system(f"mysql --password=JuliethRojas123. -u root db_elnopal < {file[1:]}")
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><Salio')
     except:
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<< CHALE')
