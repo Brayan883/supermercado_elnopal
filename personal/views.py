@@ -11,9 +11,10 @@ def index_user(request):
     products = Product.objects.all()
     categories= Subcategory.objects.all()
     if request.method == "POST":                                                                    
-        ids =  list(request.POST)[1]                                                                    
+        ids =  list(request.POST)[1]
+        xd = request.POST                                                                   
         products = Product.objects.all().filter(subcategory_id = ids)
-        print('aknsjnajsnjnajsnajnsjnjansjnas' , ids )
+        print('aknsjnajsnjnajsnajnsjnjansjnas' , ids , xd )
     context={
         'title_pag':title_pag,
         'categories':categories,
