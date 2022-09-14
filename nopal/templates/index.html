@@ -12,14 +12,16 @@
     <div class="glider-contain col-xl-15 " id="glider-{{subcategory.id}}">
       <div class="glider-cat-1 glider">
         {% for sub in categories %}
-          <img src="{{sub.image.url}}"  style="height:200px;"  alt="...">
+        <div class="card w-25 border ms-3 ">
+          <img class="w-75 mx-auto" src="{{sub.image.url}}"  style="height:200px;"  alt="...">
           <div class="card-description">
             <form action="" method="POST">
               {% csrf_token %}
               <input type="hidden" name="{{sub.id}}">
-              <button class="card-title text-decoration-none"  type="submit" style="border: none !important; outline: none; color: var(--verdeoscuro) !important; background: none !important; padding: 5px 15px !important; " >{{sub.name}}</button>
-          
+              <button class="card-title"  type="submit" style="border: none !important; outline: none; color: var(--verdeoscuro) !important; background: none !important; padding: 5px 15px !important; " >{{sub.name}}</button>
       	    </form>
+        </div>
+         
 	</div>
         {% endfor %}
       </div>
