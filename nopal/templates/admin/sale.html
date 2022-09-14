@@ -36,13 +36,13 @@
                         {% for register in registers %}
                                 {% if register.status %}
                                     <tr>
-                                        <td>{{register.date}}</td>
-                                        <td>{{register.user}}</td>
-                                        <td>{{register.payment}}</td>
-                                        <td>{{register.status}}</td>
-                                        <td>{{register.client.title}} - {{register.nDocument}}/{{register.address}}</td>
-                                        <td><a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
-                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>
+                                        <td id="texto">{{register.date}}</td>
+                                        <td id="texto">{{register.user}}</td>
+                                        <td id="texto">{{register.payment}}</td>
+                                        <td id="texto">{{register.status}}</td>
+                                        <td id="texto">{{register.client.title}} - {{register.nDocument}}/{{register.address}}</td>
+                                        <td><a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" id="edit" alt=""></a>
+                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" id="eliminar" alt=""></a>
                                             <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/eye.svg' %}" alt=""></a> 
                                         </td>    
                                     </tr>

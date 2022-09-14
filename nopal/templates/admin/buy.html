@@ -41,12 +41,12 @@
                     {% for register in registers %}
                             {% if register.status %}
                                 <tr>
-                                    <td>{{register.date}}</td>
-                                    <td>{{register.user}}</td>
-                                    <td>{{register.payment}}</td>
-                                    <td>{{register.satus}}</td>
-                                    <td><a href="{%url 'buy-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
-                                        <a href="{%url 'buy-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>
+                                    <td id="texto">{{register.date}}</td>
+                                    <td id="texto">{{register.user}}</td>
+                                    <td id="texto">{{register.payment}}</td>
+                                    <td id="texto">{{register.satus}}</td>
+                                    <td><a href="{%url 'buy-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" id="edit" alt=""></a>
+                                        <a href="{%url 'buy-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" id="eliminar" alt=""></a>
                                         <a href="{%url 'detail-buy' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/eye.svg' %}" alt=""></a> 
                                     </td>    
                                 </tr>

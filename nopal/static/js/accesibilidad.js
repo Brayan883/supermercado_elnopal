@@ -104,7 +104,7 @@ let darktheme = ()=>{
                     colorTexto ? colorTexto.forEach(item=>{item.classList.remove('dark-mode')}) : colorTexto
                     if(icons5){
                         icons5.forEach(item=>{
-                            item.src = '/static/img/icons/edit.svg'
+                            item.src = '/static/img/icons/update.svg'
                         })
                     }
                     if(icons6){

@@ -40,16 +40,16 @@
                     {% for register in registers %}
                             {% if register.status %}
                                 <tr>
-                                    <td>{{register.username}}</td>
-                                    <td>{{register.name}}</td>
-                                    <td>{{register.lastname}}</td>
-                                    <td>{{register.tDocument}}</td>
-                                    <td>{{register.nDocument}}</td>
-                                    <td>{{register.email}}</td>
-                                    <td>{{register.phone}}</td>
-                                    <td>{{register.dateBirth}}</td>                     
-                                    <td><a href="{%url 'user-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
-                                        <a href="{%url 'user-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a> 
+                                    <td id="texto">{{register.username}}</td>
+                                    <td id="texto">{{register.name}}</td>
+                                    <td id="texto">{{register.lastname}}</td>
+                                    <td id="texto">{{register.tDocument}}</td>
+                                    <td id="texto">{{register.nDocument}}</td>
+                                    <td id="texto">{{register.email}}</td>
+                                    <td id="texto">{{register.phone}}</td>
+                                    <td id="texto">{{register.dateBirth}}</td>                     
+                                    <td><a href="{%url 'user-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" id="edit" alt=""></a>
+                                        <a href="{%url 'user-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" id="eliminar" alt=""></a> 
                                     </td>    
                                 </tr>
                             {% endif %}
