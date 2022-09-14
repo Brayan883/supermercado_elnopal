@@ -16,13 +16,13 @@
       //creo una tabla con los valores de los campos de producto y precio
      const productos = Object.entries(objecto).map((key) =>` ${key} `).join('');
      //creo un enlace para enviar el mensaje
-      let mensaje = `https://api.whatsapp.com/send?phone=+573185405258&text=Muy Buenas Supermercado El Nopal, amablemente necesito mi factura de la compra de los siguientes productos:${productos.replace(/,/g, ' ')}`
+      let mensaje = `https://api.whatsapp.com/send?phone=+573185405258&text= Supermercado El Nopal, quisiera por favor generar mi factura de la compra de los siguientes productos:${productos.replace(/,/g, ' ')}`
       console.log(mensaje)
       new Promise( (resolve, reject) =>{
           if(mensaje){
               //envio el mensaje con el enlace
               if (Object.keys(objecto).length > 0) {
-                //   location.href = mensaje;
+                  location.href = mensaje;
                   resolve('procesando mensaje');
               }else{
                   reject('porfavor compre al menos un producto');
