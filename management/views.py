@@ -12,14 +12,45 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
 # Create your views here.
+# def index_admin(request):
+#     location = True
+#     admin = True
+#     title_pag = "Menú de Administracion"
+#     context = {
+#         'title_pag':title_pag,
+#         'admin':admin,
+#         'location':location,
+#     }
+#     return render(request, "admin/index-admin.html", context)
 def index_admin(request):
     location = True
     admin = True
     title_pag = "Menú de Administracion"
+    tapas=DetailSale.objects.all()
+    
+    tapas_stats=tapas.values('product').annotate(total_tapas=Sum(('amount'), output_field=models.PositiveIntegerField())).order_by('total_tapas')
+    total_tapas=DetailSale.objects.aggregate(Sum('amount'))['amount__sum']
+
+    for i in tapas_stats:
+        i['product']=Product.objects.get(id=i['product'])
+    tapas_grupos=tapas_stats.all()
+    tapas_grupos_final={}
+    for j in tapas_grupos:
+        j['product']=Product.objects.get(id=j['product']).subcategory
+        if tapas_grupos_final.get(j['product']) != None:
+           tapas_grupos_final[j['product']]+= j['total_tapas']
+        else:
+           tapas_grupos_final[j['product']]= j['total_tapas']
+
+    fecha_stats=tapas.values('date').annotate(total_tapas=Sum(('amount'), output_field=models.PositiveIntegerField()))
     context = {
         'title_pag':title_pag,
         'admin':admin,
         'location':location,
+        'tapas_stats':tapas_stats,
+        'fecha_stats':fecha_stats,
+        'total_tapas':total_tapas,
+        'tapas_grupos':tapas_grupos_final
     }
     return render(request, "admin/index-admin.html", context)
 

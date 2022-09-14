@@ -132,6 +132,7 @@ class Sale(models.Model):
         verbose_name_plural = "Ventas"
         
 class DetailSale(models.Model):
+    date = models.DateField(auto_now=True, verbose_name="Fecha de Venta")
     sale = models.ForeignKey(Sale, on_delete=models.SET_NULL, null=True, verbose_name=u"Id Venta")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL,null=True,verbose_name=u"Producto")
     amount = models.PositiveIntegerField(validators=[MinValueValidator(1)],default=1, verbose_name=u"Cantidad")
