@@ -32,23 +32,23 @@
                         </tr>
                     </thead>
                    <tbody>
-                        {% for sale in sales %}
-                        {% if sale.status == 'Activo'%}
-                            <tr>
-                                    <td>{{sale.name}}</td>
-                                    <td>{{sale.employee}}</td> 
-                                    <td>{{sale.typeSale}}</td> 
-                                    <td>{{sale.payment}}</td>
-                                                            
-                                <td>
-                                    <a href="{% url 'editar-venta' sale.id %}" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/update.svg' %} " alt=""></a>
-                                    <a href="" class="btn btn-md border"><img class="img-fluid " src=" {% static 'img/icons/eye.svg' %} " alt=""></a>
-                                    <a href="{% url 'eliminar-venta' sale.id %}" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/delete.svg' %}" alt=""></a> 
-                                </td>
-                            </tr>
-                            {% endif %}
+                    <tbody>
+                        {% for register in registers %}
+                                {% if register.status %}
+                                    <tr>
+                                        <td>{{register.date}}</td>
+                                        <td>{{register.user}}</td>
+                                        <td>{{register.payment}}</td>
+                                        <td>{{register.status}}</td>
+                                        <td>{{register.client.title}} - {{register.nDocument}}/{{register.address}}</td>
+                                        <td><a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
+                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>
+                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/eye.svg' %}" alt=""></a> 
+                                        </td>    
+                                    </tr>
+                                {% endif %}
                         {% endfor %}
-                   </tbody>
+                        </tbody> 
                 </table>
                 {% if messages %}
                     {% for message in messages %}

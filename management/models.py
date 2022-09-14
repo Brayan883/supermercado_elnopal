@@ -20,7 +20,7 @@ class Category(models.Model):
 class Subcategory(models.Model):
     name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name=u"Categoría")
-    image = models.ImageField(upload_to='subcategory', null=True, verbose_name=u"imagen", default='subcategory/Logo.png')
+    image = models.ImageField(upload_to='subcategory', null=True, verbose_name=u"Imagen", default='subcategory/Logo.png')
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return ' %s' %(self.name)
@@ -47,14 +47,14 @@ class Product(models.Model):
     description = models.TextField(max_length=150, blank=True, verbose_name=u"Descripción")
     subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, null=True, verbose_name=u"Subcategoría")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, verbose_name=u"Marca")
-    expirationDate = models.DateField(verbose_name="Fecha de Vencimiento", help_text=u"DD/MM/AAAA")
     class UMeasurement(models.TextChoices):
         unit = 'unit', _('Unidad')
         pound = 'pound', _('Lb')
         kilogram ='kilogram', _('Kg')
+        litre = 'litre',_('L')
     unitMeasurement = models.CharField(max_length=30, choices=UMeasurement.choices, default=UMeasurement.unit, verbose_name="Unidad de medida")
-    stock = models.PositiveIntegerField(validators=[MinValueValidator(1)], blank=False, null=True)
-    image = models.ImageField(upload_to='product', verbose_name=u"Imagen", default='product/Logo.png')
+    stock = models.PositiveIntegerField(validators=[MinValueValidator(1)], blank=False, null=True, verbose_name=u"Stock")
+    image = models.ImageField(upload_to='product', null=True, verbose_name=u"Imagen", default='product/Logo.png')
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return ' %s' %(self.name)
@@ -102,9 +102,9 @@ class Buy(models.Model):
 class DetailBuy(models.Model):
     buy = models.ForeignKey(Buy, on_delete=models.SET_NULL, null=True, verbose_name=u"Id Compra")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL,null=True,verbose_name=u"Producto")
-    amount = models.PositiveIntegerField(validators=[MinValueValidator(1)],default=1)
+    amount = models.PositiveIntegerField(validators=[MinValueValidator(1)],default=1, verbose_name=u"Cantidad")
     total = models.IntegerField(default=0)
-    status = models.CharField(max_length=10, choices=Status.choices, verbose_name="Estado", default=Status.ABIERTA)
+    status = models.BooleanField(default=True, verbose_name="Estado")
     class Meta:
         verbose_name="Detalle de compra"
         verbose_name_plural = "Detalle de compras"
@@ -112,8 +112,9 @@ class DetailBuy(models.Model):
 class Sale(models.Model):
     date = models.DateField(auto_now=True, verbose_name="Fecha de Venta")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=u"Empleado")
-    client = models.CharField(default="Local", blank=False, null=False, max_length=50)
-    nDocumento = models.CharField(default="00.000.000", blank=False, null=False, max_length=20)
+    client = models.CharField(blank=True, null=False, max_length=50, verbose_name=u"Cliente")
+    nDocument = models.CharField(blank=True, null=False, max_length=20, verbose_name=u"Número de Documento / NIT")
+    address = models.CharField(blank=True, null=False, verbose_name=u"Dirección", max_length=254)
     class TypeSale(models.TextChoices):
         store = 'store', _('Local')
         address = 'Domicilio', _('Domiclio')
@@ -124,6 +125,8 @@ class Sale(models.Model):
     statusSale = models.BooleanField(default=True)
     def __str__(self) -> str:
         return ' %s' %(self.date)
+    def clean(self):
+        self.client = self.client.title()
     class Meta:
         verbose_name = "Venta"
         verbose_name_plural = "Ventas"
@@ -131,7 +134,7 @@ class Sale(models.Model):
 class DetailSale(models.Model):
     sale = models.ForeignKey(Sale, on_delete=models.SET_NULL, null=True, verbose_name=u"Id Venta")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL,null=True,verbose_name=u"Producto")
-    amount = models.PositiveIntegerField(validators=[MinValueValidator(1)],default=1)
+    amount = models.PositiveIntegerField(validators=[MinValueValidator(1)],default=1, verbose_name=u"Cantidad")
     total = models.IntegerField(default=0)
     status = models.CharField(max_length=10, choices=Status.choices, verbose_name="Estado", default=Status.ABIERTA)
     class Meta:
@@ -145,7 +148,7 @@ def validate_file_extension(value):
         raise ValidationError('Archivo no válido')
 
 class Backup(models.Model):
-    name = models.CharField(max_length = 200,default="Copia de Seguridad", blank=True)
-    file = models.FileField(upload_to="backup",validators=[validate_file_extension])
+    name = models.CharField(max_length = 200,default="Copia de Seguridad", blank=True, verbose_name=u"Nombre del Archivo")
+    file = models.FileField(upload_to="backup",validators=[validate_file_extension], verbose_name=u"Archivo")
     date = models.DateTimeField(auto_now = True)
 

@@ -31,7 +31,7 @@ def subcategory(request):
     title_pag = "Subcategoría"
     registers = Subcategory.objects.all()
     if request.method == 'POST':
-        form = SubcategoryForm(request.POST)
+        form = SubcategoryForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             name = form.cleaned_data.get('name')
@@ -61,12 +61,13 @@ def subcategory_modal(request, modal, pk):
         modal_title = 'Eliminar subcategoría'
         modal_txt = 'eliminar la subcategoría'
         modal_submit = 'eliminar'
-        form = SubcategoryForm(request.POST)
-        if request.method == 'POST':
+        form = SubcategoryForm(request.POST, request.FILES)
+        if request.method == 'POST' :
             print('----------------------------------------ELIMINANDO')
             Subcategory.objects.filter(id=pk).update(
                 status = False
             )
+            print('-------------------------------------------------SE ELIMINÓ')
             subcategoryName = register_id.name.title()
             messages.success(request, f'La subcategoría {subcategoryName} se eliminó correctamente!')
 
@@ -77,7 +78,7 @@ def subcategory_modal(request, modal, pk):
         modal_title = 'Editar subcategoría'
         modal_txt = 'editar la subcategoría'
         modal_submit = 'guardar'
-        form = SubcategoryForm(request.POST, instance=register_id)
+        form = SubcategoryForm(request.POST, request.FILES, instance=register_id)
         if request.method == 'POST':
             print('----------------------------------------EDITANDO')                
             if form.is_valid():
@@ -109,7 +110,7 @@ def category(request):
     title_pag = "Categoría"
     registers = Category.objects.all()
     if request.method == 'POST':
-        form = CategoryForm(request.POST)
+        form = CategoryForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             name = form.cleaned_data.get('name')
@@ -139,7 +140,7 @@ def category_modal(request, modal, pk):
         modal_title = 'Eliminar categoría'
         modal_txt = 'eliminar la categoría'
         modal_submit = 'eliminar'
-        form = CategoryForm(request.POST)
+        form = CategoryForm(request.POST, request.FILES)
         if request.method == 'POST':
             print('----------------------------------------ELIMINANDO')
             Category.objects.filter(id=pk).update(
@@ -155,7 +156,7 @@ def category_modal(request, modal, pk):
         modal_title = 'Editar categoría'
         modal_txt = 'editar la categoría'
         modal_submit = 'guardar'
-        form = CategoryForm(request.POST, instance=register_id)
+        form = CategoryForm(request.POST, request.FILES, instance=register_id)
         if request.method == 'POST':
             print('----------------------------------------EDITANDO')                
             if form.is_valid():
@@ -180,7 +181,6 @@ def category_modal(request, modal, pk):
     }
     return render(request, 'admin/modal-category.html', context)
 
-
 ############################## BRAND ###############################
 def brand(request):
     location = True
@@ -192,7 +192,7 @@ def brand(request):
     # print(fields)
     atributes = ['Nombre']
     if request.method == 'POST':
-        form = BrandForm(request.POST)
+        form = BrandForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             name = form.cleaned_data.get('name')
@@ -224,7 +224,7 @@ def brand_modal(request, modal, pk):
         modal_title = 'Eliminar marca'
         modal_txt = 'eliminar la marca'
         modal_submit = 'eliminar'
-        form = BrandForm(request.POST)
+        form = BrandForm(request.POST, request.FILES)
         if request.method == 'POST':
             print('----------------------------------------ELIMINANDO')
             Brand.objects.filter(id=pk).update(
@@ -239,7 +239,7 @@ def brand_modal(request, modal, pk):
         modal_title = 'Editar marca'
         modal_txt = 'editar la marca'
         modal_submit = 'guardar'
-        form = BrandForm(request.POST, instance=register_id)
+        form = BrandForm(request.POST, request.FILES, instance=register_id)
         if request.method == 'POST':
             print('----------------------------------------EDITANDO')                
             if form.is_valid():
@@ -263,7 +263,6 @@ def brand_modal(request, modal, pk):
         'location':location,
     }
     return render(request, 'admin/modal-brand.html', context)
-
 ############################# PRODUCT ##############################
 def product(request):
     location = True
@@ -275,7 +274,7 @@ def product(request):
     # print(fields)
     atributes = ['Nombre','Precio','Subcategoría','Fecha de Vencimeinto','Unidad de Medida','Stock','Descripción','Imagen']
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             name = form.cleaned_data.get('name')
@@ -293,6 +292,7 @@ def product(request):
         'atributes':atributes
     }
     return render(request, 'admin/product.html', context)
+
 def product_modal(request, modal, pk):
     title_pag = "Producto"
     modal_title = ''
@@ -307,7 +307,7 @@ def product_modal(request, modal, pk):
         modal_title = 'Eliminar producto'
         modal_txt = 'eliminar el producto'
         modal_submit = 'eliminar'
-        form = BrandForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         if request.method == 'POST':
             print('----------------------------------------ELIMINANDO')
             Product.objects.filter(id=pk).update(
@@ -322,7 +322,7 @@ def product_modal(request, modal, pk):
         modal_title = 'Editar producto'
         modal_txt = 'editar el producto'
         modal_submit = 'guardar'
-        form = ProductForm(request.POST, instance=register_id)
+        form = ProductForm(request.POST, request.FILES, instance=register_id)
         if request.method == 'POST':
             print('----------------------------------------EDITANDO')                
             if form.is_valid():
@@ -331,7 +331,7 @@ def product_modal(request, modal, pk):
                 messages.success(request, f'La producto {productName} se editó correctamente!')
                 return redirect ('product')
         else:
-            form=BrandForm(instance=register_id)
+            form=ProductForm(instance=register_id)
     context ={
         'form':form,
         'modal_title':modal_title,
@@ -358,7 +358,7 @@ def provider(request):
     # print(fields)
     atributes = ['Nombre','Celular','Correo Electrónico']
     if request.method == 'POST':
-        form = ProviderForm(request.POST)
+        form = ProviderForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             name = form.cleaned_data.get('name')
@@ -390,7 +390,7 @@ def provider_modal(request, modal, pk):
         modal_title = 'Eliminar proveedor'
         modal_txt = 'eliminar el proveedor'
         modal_submit = 'eliminar'
-        form = ProviderForm(request.POST)
+        form = ProviderForm(request.POST, request.FILES)
         if request.method == 'POST':
             print('----------------------------------------ELIMINANDO')
             Provider.objects.filter(id=pk).update(
@@ -405,7 +405,7 @@ def provider_modal(request, modal, pk):
         modal_title = 'Editar proveedor'
         modal_txt = 'editar el proveedor'
         modal_submit = 'guardar'
-        form = ProviderForm(request.POST, instance=register_id)
+        form = ProviderForm(request.POST, request.FILES, instance=register_id)
         if request.method == 'POST':
             print('----------------------------------------EDITANDO')                
             if form.is_valid():
@@ -441,7 +441,7 @@ def user(request):
     # print(fields)
     atributes = ['Username','Correo Electrónico','Nombre','Apellido','Tipo de Documento','Número de Documento','Celular','Fecha de Nacimiento','¿Es administrador?']
     if request.method == 'POST':
-        form = UserForm(request.POST)
+        form = UserForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             name = form.cleaned_data.get('username')
@@ -473,7 +473,7 @@ def user_modal(request, modal, pk):
         modal_title = 'Eliminar usuario'
         modal_txt = 'eliminar el usuario'
         modal_submit = 'eliminar'
-        form = UserForm(request.POST)
+        form = UserForm(request.POST, request.FILES)
         if request.method == 'POST':
             print('----------------------------------------ELIMINANDO')
             User.objects.filter(id=pk).update(
@@ -488,7 +488,7 @@ def user_modal(request, modal, pk):
         modal_title = 'Editar usuario'
         modal_txt = 'editar el usuario'
         modal_submit = 'guardar'
-        form = UserForm(request.POST, instance=register_id)
+        form = UserForm(request.POST, request.FILES, instance=register_id)
         if request.method == 'POST':
             print('----------------------------------------EDITANDO')                
             if form.is_valid():
@@ -517,21 +517,23 @@ def user_modal(request, modal, pk):
 def buy(request):
     location = True
     admin = True
-    buy = True
+    buy_template = True
     title_pag = "Compra"
     registers = Buy.objects.all()
-    details = DetailBuy.objects.all()
     if request.method == 'POST':
+        print('COMPRA-------------------------------->')
         form = BuyForm(request.POST)
         if form.is_valid():
+            print(request.POST)
             date_aux = datetime.now().strftime("%Y-%m-%d")
-            modelo1 = Buy.objects.create(
-                date = date_aux
+            buy = Buy.objects.create(
+                date = date_aux,
+                user = form.cleaned_data['user'],
+                payment = request.POST['payment']
             )
-            form.save()
             messages.success(
-                request, f'La compra #{modelo1.id} está lista para añadir productos')
-            return redirect('buy-detail', pk=modelo1.id)
+                request, f'La compra #{buy.id} está lista para añadir productos')
+            return redirect('buy-detail', pk=buy.id)
     else:
         form = BuyForm()
     context = {
@@ -540,10 +542,10 @@ def buy(request):
         'admin':admin,
         'registers': registers,
         'location':location,
-        'details':details,
-        'buy':buy
+        'buy_template':buy_template,
     }
     return render(request, 'admin/buy.html', context)
+
 def buy_modal(request, modal, pk):
     title_pag = "Compra"
     modal_title = ''
@@ -599,91 +601,121 @@ def buy_modal(request, modal, pk):
     }
     return render(request, 'admin/modal-buy.html', context)
 
-############################### DETAIL BUY ################################
-def detail_buy(request, pk):
-    title_pag = "facturas"
+############################### SALE ################################
+
+def sale(request):
     location = True
     admin = True
-    details = DetailBuy.objects.filter(buy_id=pk)
-    detail_id =DetailBuy.objects.get(id=pk)
-    
-    if(DetailBuy.objects.filter(buy_id=detail_id.id).values("buy").annotate(tPrice=Sum(('finalPrice'),output_field=models.IntegerField()))):
-        total= DetailBuy.objects.filter(buy_id=detail_id.id).values("buy").annotate(tPrice=Sum(('finalPrice'),output_field=models.IntegerField()))[0]["tPrice"]
-    else:
-        total=0
-        
-    products= Product.objects.all()
-    
+    buy_template = False
+    title_pag = "Venta"
+    registers = Sale.objects.all()
+    details = DetailSale.objects.all()
     if request.method == 'POST':
-        form= DetailBuyForm(request.POST)
-        if form.is_valid():    
-            product = Product.objects.get(id=request.POST['product'])
-            existe = DetailBuy.objects.filter(buy=pk, product=product)
-            if len(existe) == 0:
-                DetailBuy.objects.create(
-                        amount= form.cleaned_data.get('amount'),
-                        total= product.price * form.cleaned_data.get('amount'),                                                          
-                        buy=detail_id,               
-                        product = product,
-                )
-                
-                Product.objects.filter(id=product.id).update(
-                    stock=product.stock + form.cleaned_data.get('amount')
-                
-                )
-
-                if(DetailBuy.objects.filter(buy_id=detail_id.id).values("buy").annotate(tPrice=Sum(('total'),output_field=models.IntegerField()))):
-                    total= DetailBuy.objects.filter(buy_id=detail_id.id).values("buy").annotate(tPrice=Sum(('total'),output_field=models.IntegerField()))[0]["tPrice"]
-                    DetailBuy.objects.filter(id=pk).update(
-                        neto_pagar=total                
-                    )
-                else:
-                    total=0
-                
-                messages.success(request,f' se agregó {product} a la compra correctamente!')
-                return redirect('detail-buy', pk=pk)
-            
-            
-            else:
-                previous = DetailBuy.objects.filter(buy_id=pk,product=request.POST['product'])
-                 
-                DetailBuy.objects.filter(buy_id=pk,product=request.POST['product']).update(
-                    amount=previous[0].amount + form.cleaned_data.get('amount'),
-                    total=previous[0].total + product.price * form.cleaned_data.get('amount'),
-                )
-                
-                Product.objects.filter(id=product.id).update(
-                        stock=product.stock + form.cleaned_data.get('amount')
-                    
-                    )
-                if(DetailBuy.objects.filter(buy_id=detail_id.id).values("buy").annotate(tPrice=Sum(('total'),output_field=models.IntegerField()))):
-                    total= DetailBuy.objects.filter(buy_id=detail_id.id).values("buy").annotate(tPrice=Sum(('total'),output_field=models.IntegerField()))[0]["tPrice"]
-                    DetailBuy.objects.filter(id=pk).update(
-                        neto_pagar=total                
-                )
-                else:
-                    total=0
-                
-                DetailBuy.objects.filter(id=pk).update(
-                        neto_pagar=total                
-                )
-
-            
-        else:
-            messages.warning (request,f' Error')
+        print('VENTA-------------------------------->')
+        form = SaleForm(request.POST)
+        if form.is_valid():
+            print(request.POST)
+            date_aux = datetime.now().strftime("%Y-%m-%d")
+            sale = Sale.objects.create(
+                date = date_aux,
+                user = form.cleaned_data.get('user'),
+                client = request.POST['client'],
+                nDocument = request.POST['nDocument'],
+                typeSale = request.POST['typeSale'],
+                payment = request.POST['payment']
+            )
+            messages.success(
+                request, f'La compra #{sale.id} está lista para añadir productos')
+            return redirect('sale')
     else:
-        form= DetailBuyForm()
-    context={
-        "products":products,
+        form = SaleForm()
+    context = {
+        'form':form,
         'title_pag':title_pag,
         'admin':admin,
-        "details": details,                                   
-        "form":form,
-        "detail_id":detail_id,
-        "total":total,
+        'registers': registers,
         'location':location,
+        'details':details,
+        'buy_template':buy_template,
     }
-    return render(request, "admin/detail", context)
+    return render(request, 'admin/sale.html', context)
+
+############################### DETAIL BUY ################################
+def detail_buy(request, pk):
+    location = True
+    admin = True
+    buy_template = True
+    title_pag = "Compra"
+    registers = DetailBuy.objects.filter(buy=pk)
+    buy_id = Buy.objects.get(id=pk)
+    
+    if(DetailBuy.objects.filter(id=buy_id.id).values("buy").annotate(total_=Sum(('total'),output_field=models.IntegerField()))):
+        total = DetailBuy.objects.filter(id=buy_id.id).values("buy").annotate(total_=Sum(('total'),output_field=models.IntegerField()))[0]["total_"]
+    else:
+        total = 0
+    
+    
+    if request.method == 'POST':
+        form = DetailBuyForm(request.POST)
+        detail = DetailBuy.objects.filter(
+                buy = buy_id,
+                product = request.POST['product'],
+                amount = request.POST['amount']
+                ) 
+            
+        if detail.exists(): #busca la factura, si existe, la filtra
+            detail = DetailBuy.objects.filter(
+                buy = buy_id,
+                product = request.POST['product'],
+                )
+        else: #si no, lo deja vacio
+            detail = None            
+        if detail == None: #si está vacio
+            if form.is_valid():  # y el formulario es válido
+                detail_id = DetailBuy.objects.create( # ------------------------------------Crea un detalle
+                    buy = buy_id,
+                	product = form.cleaned_data['product'],
+                	amount = request.POST['amount'],    
+                )
+                DetailBuy.objects.filter(buy = buy_id, product = request.POST['product']).update(
+                    finalPrice = request.POST['product'].price * request.POST('amount')
+                ) 
+                product = form.cleaned_data['product']
+                messages.success(request,f'{product.name.title} se añadió a la compra!')
+                   
+        else: # si no está vacío, va a actualizar la cantidad de producto
+            detail_p = DetailBuy.objects.filter(buy = buy_id, product = request.POST['product']).update(
+            DetailBuy.objects.filter(buy = buy_id, product = request.POST['product']).update(
+                amount=detail_p[0].amount + request.POST['amount'],
+                total=detail_p[0].total + product.precio * request.POST('amount'))
+        )  
+                
+
+        Product.objects.filter(id = product.id).update(
+            stock = product.stock + form.cleaned_data.get('amount')
+        ) # -------------------------------- Actualización de stock
+        if(DetailBuy.objects.filter(id=buy_id.id).values("buy").annotate(total_=Sum(('total'),output_field=models.IntegerField()))):
+            total = DetailBuy.objects.filter(id=buy_id.id).values("buy").annotate(total_=Sum(('total'),output_field=models.IntegerField()))[0]["total_"]
+        else:
+            total = 0   
+        Buy.objects.filter(id=pk).update(
+                finalPrice = total
+            )
+            
+            
+        return redirect('buy-detail', pk=pk) 
+    else:
+        form= DetailBuyForm()
+    context = {
+        'form':form,
+        'title_pag':title_pag,
+        'admin':admin,
+        'registers': registers,
+        'location':location,
+        'buy_template':buy_template,
+        'total':total,
+    }
+    return render(request, 'admin/detail.html', context)
 
     ############################# BACKUP ###############################
 def export_data():

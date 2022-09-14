@@ -30,17 +30,13 @@ class BrandForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = ['name','price','subcategory','brand','expirationDate','unitMeasurement','stock','image','description']
+        fields = ['name','price','subcategory','brand','unitMeasurement','stock','image','description']
         widgets = {
             'name':forms.TextInput(attrs={'class':'form-control'}),
             'price':forms.NumberInput(attrs={'class':'form-control'}),
             'description':forms.Textarea(attrs={'class':'form-control'}),
             'subcategory':forms.Select(attrs={'class':'form-control'}),
             'brand':forms.Select(attrs={'class':'form-control'}),
-            'expirationDate':forms.DateInput(format=(' %m/%d/%Y'),
-                                    attrs={'class':'form-control',
-                                            'placeholder':'Seleccione la fecha de vencimiento',
-                                            'type':'date'}),
             'unitMeasurement':forms.Select(attrs={'class':'form-control'}),
             'stock':forms.NumberInput(attrs={'class':'form-control'}),
             'image':forms.FileInput(attrs={'class':'form-control'})            
@@ -78,11 +74,14 @@ class DetailBuyForm(forms.ModelForm):
 class SaleForm(forms.ModelForm):
     class Meta:
         model = Sale
-        fields=['user','typeSale','payment']
+        fields=['user','typeSale','payment','client','nDocument','address']
         widgets = {
             'user':forms.Select(attrs={'class':'form-control'}),
             'typeSale':forms.Select(attrs={'class':'form-control'}),
             'payment':forms.Select(attrs={'class':'form-control'}),
+            'client':forms.TextInput(attrs={'class':'form-control'}),
+            'nDocument':forms.NumberInput(attrs={'class':'form-control'}),
+            'address':forms.TextInput(attrs={'class':'form-control'})
         }
         
 class DetailSaleForm(forms.ModelForm):

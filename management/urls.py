@@ -23,7 +23,8 @@ urlpatterns = [
     path('compra/', buy, name="buy"),
     path('compra/<str:modal>/<int:pk>', buy_modal, name="buy-modal"),
     path('compra/detalle/<int:pk>', detail_buy, name="buy-detail"),
-    #path('compra/detalle/<str:modal>/<int:pk>', detail_buy_modal, name="buy-detail-modal"),
-    
+
+    path('venta/', sale, name="sale"),
+
 ]
 
