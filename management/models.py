@@ -20,7 +20,8 @@ class Category(models.Model):
 class Subcategory(models.Model):
     name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name=u"Categoría")
-    image = models.ImageField(upload_to='subcategory', null=True, verbose_name=u"imagen", default='subcategory/Logo.png')
+    # image = models.ImageField(upload_to='subcategory', null=True, verbose_name=u"imagen", default='')
+    image=models.ImageField(upload_to="subcategory",  null=True, blank=False)
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return ' %s' %(self.name)
@@ -54,7 +55,8 @@ class Product(models.Model):
         kilogram ='kilogram', _('Kg')
     unitMeasurement = models.CharField(max_length=30, choices=UMeasurement.choices, default=UMeasurement.unit, verbose_name="Unidad de medida")
     stock = models.PositiveIntegerField(validators=[MinValueValidator(1)], blank=False, null=True)
-    image = models.ImageField(upload_to='product', verbose_name=u"Imagen", default='product/Logo.png')
+    # image = models.ImageField(upload_to='product', verbose_name=u"Imagen", default='')
+    image=models.ImageField(upload_to="carrito", null=True, blank=False)
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return ' %s' %(self.name)

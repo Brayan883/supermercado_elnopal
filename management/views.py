@@ -30,8 +30,10 @@ def subcategory(request):
     admin = True
     title_pag = "Subcategoría"
     registers = Subcategory.objects.all()
+    print('skkndjnsjndjsn' , request.POST )
     if request.method == 'POST':
         form = SubcategoryForm(request.POST)
+        print('skkndjnsjndjsn' , request.POST )
         if form.is_valid():
             form.save()
             name = form.cleaned_data.get('name')
