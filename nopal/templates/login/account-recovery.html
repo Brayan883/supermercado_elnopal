@@ -3,21 +3,21 @@
 {% block title %}{{titulo_pagina}} - INICIAR SESION{% endblock title %}
 {% load static %}
 {% block contenido %}
-<div class="contenedor_mayor" style="height:100%">
-    <div  class="ve_inicio">
-        <div class="contenedor_ve_inicio">
-            <div class="contenedor_iniciosubtitulos" id="superior">
-                <h2 class="subtitulos_inicio">Recupera tu cuenta</h2>
+<div class="background_login">
+    <div class="container_login">
+        <div>
+            <div class="container_subtitle" id="c_top">
+                <h2 class="subtitles_login">Recupera tu cuenta</h2>
             </div>
-    
-            <div class="contenedor_inicio1">
-                <div class="texto_inicio">Contraseña reestablecida
-                
+
+            <div class="container_login_subtitles">
+                <div class="text_login">Contraseña reestablecida</div>
             </div>
-    
-            <div class="contenedor_iniciosubtitulos" id="inferior">
-                <a class="hvinculo_inicio" href="{% url 'admin-login' %}">Volver al inicio de sesión</a>
+
+            <div class="container_subtitle" id="c_bottom">
+                <a class="link_login" href="{% url 'admin-login' %}">Volver al inicio de sesión</a>
             </div>
         </div>
     </div>
+</div>
 {% endblock contenido %}
