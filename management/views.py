@@ -133,7 +133,7 @@ def category_modal(request, modal, pk):
     modal_title = ''
     modal_txt = ''
     modal_submit = ''
-    url_back="/administracion/categoria/"
+    url_back="/g-contabilidad/categoria/"
     registers = Category.objects.all()
     register_id = Category.objects.get(id=pk)
     if modal == 'eliminar':
