@@ -5,11 +5,11 @@
 {% block contenido %}
 
 <div >
-    <section class="container p-5 h-auto" id="mode-cards" data-admin id="cuerpo" style="width: 95%">
+    <section class="container bg-white p-5 h-auto" data-admin id="cuerpo" style="width: 95%">
         <h1>Gestionar {{title_pag}}</h1>
         <div class="row my-4">
             <div class="col-md-4">
-                <div class="border p-3 rounded shadow mt-3" id="mode-cards">
+                <div class="border bg-white p-3 rounded shadow mt-3" id="mode-cards">
                     <h3 class="text-start">Nuevo Registro </h3>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -19,6 +19,8 @@
                         style="width: 120px;" >Agregar</button>
 
                     </form>
+
+
                 </div>
             </div>
             <div class="col-md-8">
@@ -26,11 +28,7 @@
                     <thead style="background-color: var(--verde); color: var(--verdeoscuro);">
                         <tr>
                             <th scope="col">Fecha</th>
-                            {% if buy %}
-                                <th scope="col">Proveedor</th>
-                            {% else %}
-                                <th scope="col">Proveedor</th>
-                            {% endif %}
+                            <th scope="col">Proveedor</th>
                             <th scope="col">Método de Pago</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Acciones</th>
@@ -39,15 +37,24 @@
 
                     <tbody>
                     {% for register in registers %}
-                            {% if register.status %}
+                            {% if register.statusBuy %}
                                 <tr>
-                                    <td id="texto">{{register.date}}</td>
-                                    <td id="texto">{{register.user}}</td>
-                                    <td id="texto">{{register.payment}}</td>
-                                    <td id="texto">{{register.satus}}</td>
-                                    <td><a href="{%url 'buy-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" id="edit" alt=""></a>
-                                        <a href="{%url 'buy-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" id="eliminar" alt=""></a>
-                                        <a href="{%url 'detail-buy' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/eye.svg' %}" alt=""></a> 
+                                    <td>{{register.date}}</td>
+                                    <td>{{register.user}}</td>
+                                    <td>{{register.payment}}</td>
+                                    <td>{{register.status}}</td>
+                                    <td>
+                                        {% if register.status == "Abierta" %}
+                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
+                                            {% if user.is_staff %}
+                                            <a href="{% url 'buy-modal' modal='eliminar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>
+                                            {% endif %}
+                                            <a href="{% url 'buy-detail' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/plus.svg' %}" alt=""></a> 
+                                        {% elif register.status == "Cerrada" %}
+                                            <a href="{% url 'buy-modal' modal='ver' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/eye.svg' %}" alt=""></a> 
+                                        {% elif register.status ==  "Anulada" %}
+                                            <p>Está factura se encuentra anulada</p>
+                                        {% endif %}
                                     </td>    
                                 </tr>
                             {% endif %}
@@ -55,6 +62,7 @@
                     </tbody> 
 
                 </table>
+                
                 {% if messages %}
                 {% for message in messages %}
                 <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
@@ -68,6 +76,7 @@
         </div>
     </section>
 </div>
+
 
 {% include 'partials/accesibilidad.html' %}
  {% endblock %}

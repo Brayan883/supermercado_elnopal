@@ -57,16 +57,15 @@ class BuyForm(forms.ModelForm):
         model = Buy
         fields =['provider','payment']
         widgets = {
-            'provider':forms.Select(attrs={'class':'form-control'}),
+            'user':forms.Select(attrs={'class':'form-control'}),
             'payment':forms.Select(attrs={'class':'form-control'})
         }
         
 class DetailBuyForm(forms.ModelForm):
     class Meta:
         model = DetailBuy
-        fields = ['buy','product','amount']
+        fields = ['product','amount']
         widgets = {
-            'buy':forms.Select(attrs={'class':'form-control'}),
             'product':forms.Select(attrs={'class':'form-control'}),
             'amount':forms.NumberInput(attrs={'class':'form-control'})
         }
@@ -87,9 +86,8 @@ class SaleForm(forms.ModelForm):
 class DetailSaleForm(forms.ModelForm):
     class Meta:
         model = DetailSale
-        fields =['sale','product','amount']
+        fields =['product','amount']
         widgets = {
-            'sale':forms.Select(attrs={'class':'form-control'}),
             'product':forms.Select(attrs={'class':'form-control'}),
             'amount':forms.NumberInput(attrs={'class':'form-control'})
         }

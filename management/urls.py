@@ -25,6 +25,8 @@ urlpatterns = [
     path('compra/detalle/<int:pk>', detail_buy, name="buy-detail"),
 
     path('venta/', sale, name="sale"),
+    path('venta/detalle/<int:pk>', detail_sale, name="sale-detail"),
+
 
 ]
 

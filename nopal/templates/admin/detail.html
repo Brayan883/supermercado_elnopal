@@ -32,12 +32,12 @@
                         </tr>
                     </thead>
                    <tbody>
-                        {% for detailbuy in registers %}
-                            {% if detailbuy.status %}
+                        {% for detail in registers %}
+                            {% if detail.status %}
                             <tr>
-                                    <td>{{detailbuy.product}}</td>
-                                    <td>{{detailbuy.product.price}}</td>
-                                    <td>{{detailbuy.amount}}</td>
+                                    <td>{{detail.product}}</td>
+                                    <td>{{detail.product.price}}</td>
+                                    <td>{{detail.amount}}</td>
                                                             
                                 <td>
                                     <a href="" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/update.svg' %} " alt=""></a>
@@ -50,10 +50,10 @@
                 </table>
 
                 {% if buy_template %}
-                        <a href="{% url 'buy' %}" class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
+                        <a href="" class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
                         style="width: 120px;">Cerrar Compra</a>
                 {% else %}
-                        <a href="{% url 'sale' %}" class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
+                        <a href="" class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
                         style="width: 120px;">Cerrar factura</a>
                 {% endif  %} 
 
