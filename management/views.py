@@ -157,6 +157,61 @@ def category(request):
         'location':location,
     }
     return render(request, 'admin/category.html', context)
+# def category_modal(request, modal, pk):
+#     title_pag = "Categoría"
+#     location = True
+#     admin = True
+#     modal_title = ''
+#     modal_txt = ''
+#     modal_submit = ''
+#     url_back="/g-contabilidad/categoria/"
+#     registers = Category.objects.all()
+#     register_id = Category.objects.get(id=pk)
+#     if modal == 'eliminar':
+#         modal_title = 'Eliminar categoría'
+#         modal_txt = 'eliminar la categoría'
+#         modal_submit = 'eliminar'
+#         form = CategoryForm(request.POST, request.FILES)
+#         if request.method == 'POST':
+#             print('----------------------------------------ELIMINANDO')
+#             Category.objects.filter(id=pk).update(
+#                 status = False
+#             )
+#             categoryName = register_id.name.title()
+#             messages.success(request, f'La categoría {categoryName} se eliminó correctamente!')
+
+#             return redirect ('category')
+#         else:
+#             form=CategoryForm()
+#     elif modal == 'editar':
+#         modal_title = 'Editar categoría'
+#         modal_txt = 'editar la categoría'
+#         modal_submit = 'guardar'
+#         form = CategoryForm(request.POST, request.FILES, instance=register_id)
+#         if request.method == 'POST':
+#             print('----------------------------------------EDITANDO')                
+#             if form.is_valid():
+#                 form.save()
+#                 categoryName = form.cleaned_data.get('name')
+#                 messages.success(request, f'La categoría {categoryName} se editó correctamente!')
+#                 return redirect ('category')
+#         else:
+#             form = CategoryForm(instance=register_id)
+#     context ={
+#         'form':form,
+#         'modal_title':modal_title,
+#         'modal_txt':modal_txt,
+#         'modal_submit':modal_submit,
+#         'url_back':url_back,
+#         'modal':modal,
+#         'register_id':register_id,
+#         'title_pag':title_pag,
+#         'admin':admin,
+#         'registers':registers,
+#         'location':location,
+#     }
+#     return render(request, 'admin/modal-category.html', context)
+
 def category_modal(request, modal, pk):
     title_pag = "Categoría"
     location = True
@@ -172,17 +227,19 @@ def category_modal(request, modal, pk):
         modal_txt = 'eliminar la categoría'
         modal_submit = 'eliminar'
         form = CategoryForm(request.POST, request.FILES)
-        if request.method == 'POST':
+        if request.method == 'POST' :
             print('----------------------------------------ELIMINANDO')
             Category.objects.filter(id=pk).update(
                 status = False
             )
+            print('-------------------------------------------------SE ELIMINÓ')
             categoryName = register_id.name.title()
             messages.success(request, f'La categoría {categoryName} se eliminó correctamente!')
 
             return redirect ('category')
         else:
             form=CategoryForm()
+        
     elif modal == 'editar':
         modal_title = 'Editar categoría'
         modal_txt = 'editar la categoría'
