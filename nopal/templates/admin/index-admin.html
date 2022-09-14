@@ -5,8 +5,8 @@
 {% include 'charts/chart-area.html' %}
 {% block contenido %}
 
-<div id="fondo_cuerpo">
-    <section class="container bg-white p-5 h-auto" data-admin id="cuerpo" style="width: 95%">
+<div>
+    <section class="container p-5 h-auto" id="mode-cards" data-admin id="cuerpo" style="width: 95%">
         <div>
             <a class="btn_login m-auto mb-3 justify-text-center rounded text-decoration-none" href="{% url 'backup' tipo='R' %}">Generar copia de seguridad</a>
         </div>
@@ -14,7 +14,7 @@
         <div>
             <div class="row">
         
-                <div class="col-xl-6">
+                <div class="col-xl-6" >
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-chart-area me-1"></i> Ventas por fecha
@@ -43,6 +43,7 @@
         </div>
     </section>
 </div>
+{% include 'partials/accesibilidad.html' %}
 
 {% endblock contenido %}
 

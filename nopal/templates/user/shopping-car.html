@@ -5,11 +5,11 @@
 <div class="btn-flotante">
     <figure class="imagenAyuda" id="ayuda"><img class="imgAyuda" src="{% static 'img/icons/help.svg' %}"data-bs-toggle="modal" data-bs-target="#modalAyuda" alt="Ayuda"></figure>
 </div>
-<div id="fondo_cuerpo">
-    <section class="container bg-white p-5 h-auto rounded" data-admin id="cuerpo" style="width: 95%">
+<div id="">
+    <section class="container p-5 h-auto rounded" data-admin id="cuerpo" style="width: 95%">
         <div class="container titulo d-flex pt-4 my-3 ">
             <h1>Tu Carrito</h1>
-            <img src="{% static 'img/icons/shopping-car.svg' %}" width="45" alt="">
+            <img src="{% static 'img/icons/shopping-car.svg' %}" id="carrito" width="45" alt="">
         </div>
         <div class="container" id="contenedor__productos">
             <div class="row p-3 w-100">
@@ -45,7 +45,7 @@
                     {% endif %}
                 </div>
                 <div class=" col-lg-5 mt-1">
-                    <div class="card m-0">
+                    <div class="card m-0" id="mode-cards">
                         <div class="card-header " style="background-color: #91b939;" >
                             <span class="fs-5 text-light" >Total Carrito</span>
                         </div>
@@ -77,13 +77,13 @@
                             </div>
                         </div>
                     </div>
-                    <a href="{% url 'limpiar_producto' %}" class="btn border border-3 mt-2" style="color:black !important;">Limpiar Carrito</a>
+                    <a href="{% url 'limpiar_producto' %}" class="btn border border-1 mt-2" id="texto" style="color:black !important;">Limpiar Carrito</a>
                 </div>
                 
             </div>
             <div class="d-flex justify-content-between mt-3">
-                <a href="{% url 'inicio' %}" class="btn border border-3 btn-sm p-1 text-decoration-none text-light" style="font-size:1.1rem; color:black !important;" >Agregar productos</a>
-                <button type="button" class="btn  border border-3 btn-sm p-1 text-decoration-none text-light" id="agregar_factura" style="font-size:1.1rem; color:black !important; " >Siguiente paso</button>
+                <a href="{% url 'inicio' %}" id="texto" class="btn border border-1 btn-sm p-1 text-decoration-none text-light" style="font-size:1.1rem; color:black !important;" >Agregar productos</a>
+                <button type="button" id="texto" class="btn  border border-1 btn-sm p-1 text-decoration-none text-light" id="agregar_factura" style="font-size:1.1rem; color:black !important; " >Siguiente paso</button>
             </div>
         </div>
     </section>

@@ -3,12 +3,12 @@
 {% block title %}{{titulo_pagina}} - El Nopal Supermercado{% endblock title %}
 {% load static %}
 {% block contenido %}
-<div id="fondo_cuerpo">
-    <section class="container bg-white p-5 h-auto" data-admin id="cuerpo" style="width: 95%">
+<div>
+    <section class="container p-5 h-auto" id="mode-cards" data-admin id="cuerpo" style="width: 95%">
         <h1>Gestionar {{title_pag}}</h1>
         <div class="row my-4">
             <div class="col-md-4">
-                <div class="border bg-white p-3 rounded shadow mt-3" id="mode-cards">
+                <div class="border p-3 rounded shadow mt-3" id="mode-cards">
                     <h3 class="text-start">Nuevo Registro </h3>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
