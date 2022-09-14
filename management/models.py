@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from personal.models import User
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False, db_column="Nombre")
+    name = models.CharField(max_length=50, unique=True, verbose_name=u"Nombre", blank=False, db_column="Nombre")
     status = models.BooleanField(default=True, db_column="Status")
     def __str__(self) -> str:
         return ' %s' %(self.name)
@@ -18,7 +18,7 @@ class Category(models.Model):
         verbose_name_plural = "Categorías"
         
 class Subcategory(models.Model):
-    name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False)
+    name = models.CharField(max_length=50,  unique=True, verbose_name=u"Nombre", blank=False)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, verbose_name=u"Categoría")
     image = models.ImageField(upload_to='subcategory', null=True, verbose_name=u"Imagen", default='subcategory/Logo.png')
     status = models.BooleanField(default=True)
@@ -42,7 +42,7 @@ class Brand(models.Model):
         verbose_name_plural = "Marcas"
 
 class Product(models.Model):
-    name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False)
+    name = models.CharField(max_length=50,  unique=True, verbose_name=u"Nombre", blank=False)
     price = models.FloatField(blank=False, verbose_name=u"Precio")
     description = models.TextField(max_length=150, blank=True, verbose_name=u"Descripción")
     subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, null=True, verbose_name=u"Subcategoría")

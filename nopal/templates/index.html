@@ -33,6 +33,7 @@
   </div>
   <div class="container border border-dark mb-3 d-flex justify-content-center flex-wrap myDIV" id="mode-cards" id="contenedor__productos" >
     {% for product in products %}
+    {% if product.status %}
       <div class="card m-3 p-2 blog-inner" id="mode-cards" style="width: 18rem;">
           <img src="{{product.image.url}}"  style="height:200px;" id="modalimagen"  class="card-img-top" alt="...">
           <div class="card-body ">
@@ -55,6 +56,7 @@
       <div class="alert alert-danger my-3 w-75 text-center" id="alerta_busqueda"  style="display: none !important;" role="alert">
         <strong>Tu búsqueda no se encuentra</strong> 
       </div>
+      {% endif %}
     {% endfor %}
   </div>
    {% include 'partials/alertas.html' %}
