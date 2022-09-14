@@ -31,7 +31,7 @@ class Subcategory(models.Model):
         verbose_name_plural = "Subcategorías"
 
 class Brand(models.Model):
-    name = models.CharField(max_length=50, verbose_name=u"Brand", blank=False, db_column="Nombre")
+    name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False, db_column="Nombre")
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return (self.name)
