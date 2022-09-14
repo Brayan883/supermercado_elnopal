@@ -11,15 +11,22 @@
                 <form action="{% url 'backup' tipo='D' %}" method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
-                        {% if modelo.status == False%}
                         {% for modelo in ficheros %}
                         <div class="mb-3 ">
                             <a href="{% static 'backup' %}/{{modelo}}">{{modelo}}</a>
                         </div>
                         {% endfor %}
-                        {% endif %}
                     </div>
                     <input type="submit" class="btn_agregar d-block text-center text-decoration-none py-1 rounded border border-none" style="width: 120px;" value="Generar Copia">
+                </form>
+            </div>
+    
+            <div class="col">
+                <h2>Importar</h2>
+                <form action="{% url 'backup' tipo='U' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %} 
+                    {{form|crispy}}
+                    <input type="submit" class="btn_agregar d-block text-center text-decoration-none py-1 rounded border border-none" style="width: 120px;" value="Enviar">
                 </form>
             </div>
         </div>

@@ -944,16 +944,17 @@ def detail_sale(request, pk):
     }
     return render(request, 'admin/detail.html', context)
     ############################# BACKUP ###############################
+
 def export_data():
     date_now = date.today()
     print('JUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEPUTA')
-    os.system(f"mysqldump --add-drop-table --column-statistics=0 --password=JuliethRojas123. -u root db_elnopal> nopal/static/backup/BKP_{date_now}.sql")
+    os.system(f"mysqldump --add-drop-table --column-statistics=0 --password=Angie1053442155 -u root db_elnopal> nopal/static/backup/BKP_{date_now}.sql")
     print('-------------------------------------------------------Hecho')
 def import_data(file):
     print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LISTO PA´ IMPRIMIR')
     try:
         print('------------------------IMPORTAR')
-        os.system(f"mysql --password=JuliethRojas123. -u root db_elnopal < {file[1:]}")
+        os.system(f"mysql --password=Angie1053442155 -u root db_elnopal < {file[1:]}")
         print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><Salio')
     except:
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<< CHALE')

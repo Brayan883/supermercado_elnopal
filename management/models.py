@@ -149,7 +149,6 @@ def validate_file_extension(value):
         raise ValidationError('Archivo no válido')
 
 class Backup(models.Model):
-    name = models.CharField(max_length = 200,default="Copia de Seguridad", blank=True, verbose_name=u"Nombre del Archivo")
-    file = models.FileField(upload_to="backup",validators=[validate_file_extension], verbose_name=u"Archivo")
+    name = models.CharField(max_length = 200,default="Copia de Seguridad", blank=True)
+    file = models.FileField(upload_to="backup",validators=[validate_file_extension])
     date = models.DateTimeField(auto_now = True)
-
