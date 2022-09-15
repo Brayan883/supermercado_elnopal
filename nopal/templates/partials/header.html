@@ -5,22 +5,22 @@
     <div class="container-fluid d-grid">
         <div class="row container-fluid p-0 m-0">
             <div class="col d-flex">
-                <img src="{% static 'img/Logo.png' %}" id="nopal" width="250px" alt="Logo - ElNopal Supermercado">
+                <img src="{% static 'img/Logo.png' %}" class="ms-5 ps-5" id="nopal" width="250px" alt="Logo - ElNopal Supermercado">
             </div>
-            <div class="col container-fluid d-flex justify-content-center align-items-center px-0">
-                <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);" href="{% url 'inicio-sesion' %}"><figure class="d-flex flex-column px-4">
+            <div class="col container-fluid d-flex justify-content-center align-items-center px-4">
+                <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);" href="{% url 'inicio-sesion' %}">
+                <figure class="d-flex flex-column align-items-center  px-4">
                     <img src="{% static 'img/icons/user.svg'%}" id="user" class="mx-auto d-block" width="45" alt="Administrador">
-                    <a class="text-decoration-none" href="{% url 'inicio-sesion' %}" id="texto">{{user.get_username}}</a>
-
-                    {% comment %} <a class="text-decoration-none" href="{% url 'inicio-sesion' %}" id="texto">Iniciar sesión</a> {% endcomment %}
+                    <a class="text-decoration-none" href="{% url 'inicio-sesion' %}" id="texto" style="color: var(--verdeoscuro);">{{user.get_username.title}}</a>
                 </figure></a>
+
                 <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);"  href="{% url 'inicio' %}"><figure class="d-flex flex-column align-items-center px-4">
                     <img src="{% static 'img/icons/exit.svg' %}" id="salir" class="mx-auto d-block" width="45" alt="Salir">
-                    <a class="text-decoration-none" href="{% url 'inicio' %}" id="texto">Salir</a>
+                    <a class="text-decoration-none" href="{% url 'inicio' %}" id="texto" style="color: var(--verdeoscuro);">Salir</a>
                 </figure></a>
                 <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);"  href=""><figure class="d-flex flex-column px-4">
                     <img src="{% static 'img/icons/help.svg' %}" id="ayuda"  class="mx-auto d-block" width="45" alt="Ayuda">
-                    <a class="text-decoration-none" href="" id="texto">Ayuda</a>
+                    <a class="text-decoration-none" href="" id="texto" style="color: var(--verdeoscuro);">Ayuda</a>
                 </figure></a>
             </div>
         </div>

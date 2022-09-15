@@ -43,7 +43,7 @@
                                     <td>{{register.status}}</td>
                                     <td>{{register.client.title}} - {{register.nDocument}}/{{register.address}}</td>
                                     <td>{% if register.status == "Abierta" %}
-                                        <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
+                                        <a href="{% url 'sale-modal' modal='editar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
                                         {% if user.is_staff %}
                                         <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>
                                         {% endif %}

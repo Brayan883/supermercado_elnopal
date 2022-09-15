@@ -19,7 +19,8 @@
                         style="width: 120px;" >Agregar</button>
                     </form>
                 </div>
-                <h2>Total a pagar: {{total}}</h2>
+
+                <h2 class="mt-3">Total a pagar: {{factura.finalPrice}}</h2>
             </div>
             <div class="col-md-8">
                 <table id="tabla" class="display table table-striped table-hover text-nowrap mt-3" style="width:100%">
@@ -40,8 +41,12 @@
                                     <td>{{detail.amount}}</td>
                                                             
                                 <td>
-                                    <a href="" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/update.svg' %} " alt=""></a>
-                                    <a href="" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/delete.svg' %}" alt=""></a> 
+                                    {% if buy_modal %}
+                                        <a href="{% url 'detail-modal' type='compra' modal='editar' pk=register.id%}v" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/update.svg' %} " alt=""></a>
+                                        <a href="{% url 'detail-modal' type='compra' modal='eliminar' pk=register.id%}" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/delete.svg' %}" alt=""></a> 
+                                    {% endif %}
+                                        <a href="{% url 'detail-modal' type='venta' modal='editar' pk=register.id%}v" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/update.svg' %} " alt=""></a>
+                                        <a href="{% url 'detail-modal' type='venta' modal='eliminar' pk=register.id%}" class="btn btn-md border" ><img class="img-fluid " src=" {% static 'img/icons/delete.svg' %}" alt=""></a> 
                                 </td>
                             </tr>
                             {% endif %}

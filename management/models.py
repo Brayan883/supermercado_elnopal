@@ -48,12 +48,12 @@ class Product(models.Model):
     subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, null=True, verbose_name=u"Subcategoría")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, verbose_name=u"Marca")
     class UMeasurement(models.TextChoices):
-        unit = 'unit', _('Unidad')
-        pound = 'pound', _('Lb')
-        kilogram ='kilogram', _('Kg')
-        litre = 'litre',_('L')
-    unitMeasurement = models.CharField(max_length=30, choices=UMeasurement.choices, default=UMeasurement.unit, verbose_name="Unidad de medida")
-    stock = models.PositiveIntegerField(validators=[MinValueValidator(1)], blank=False, null=True, verbose_name=u"Stock")
+        Unidad = 'Unidad', _('Unidad')
+        Libra = 'Libra', _('Lb')
+        Kilogramo ='Kilogramo', _('Kg')
+        Litro = 'Litro',_('L')
+    unitMeasurement = models.CharField(max_length=30, choices=UMeasurement.choices, default=UMeasurement.Unidad, verbose_name="Unidad de medida")
+    stock = models.PositiveIntegerField(validators=[MinValueValidator(1)], blank=False, null=True, verbose_name=u"Stock", default=0)
     image = models.ImageField(upload_to='product', null=True, verbose_name=u"Imagen", default='product/Logo.png')
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
@@ -108,6 +108,8 @@ class DetailBuy(models.Model):
     class Meta:
         verbose_name="Detalle de compra"
         verbose_name_plural = "Detalle de compras"
+    def __str__(self) -> str:
+        return ' %s' %('Compra: ',self.buy)
         
 class Sale(models.Model):
     date = models.DateField(auto_now=True, verbose_name="Fecha de Venta")
@@ -140,6 +142,8 @@ class DetailSale(models.Model):
     class Meta:
         verbose_name="Detalle de venta"
         verbose_name_plural = "Detalle de ventas"
+    def __str__(self) -> str:
+        return ' %s' %('Compra: ',self.sale)
         
 def validate_file_extension(value):
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename

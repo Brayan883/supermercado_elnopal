@@ -11,18 +11,14 @@
                     data-bs-dismiss="modal" href="{{url_back}}" aria-label="Close"></button></a>
             </div>
             <div class="modal-body">
-                <p>¿Está seguro de {{modal_txt}} "{{register_id}}"?</p>
-                {% if modal == 'editar' %}
-                <form action="" method="POST" enctype="multipart/form-data">
-                    {{form|crispy}}{% csrf_token %}
-                {% elif modal == 'eliminar' %}
-                <form action="" method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-                {% endif %}
-            </div>
-            <div class="modal-footer">
-                <a href="{{url_back}}"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button></a>
-                <button type="submit" class="btn btn-success">{{modal_submit.title}}</button>
+                <h2>SUPERMERCADO EL NOPAL
+                    FRUVER
+                NIT: 1052380244 - 1
+                CEL: 3204576576
+                CRA 5 No.16-46</h2>
+
+                <p>{{regiter.date}}</p>
+                
             </div>
             </form>
         </div>

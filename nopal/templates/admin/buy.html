@@ -29,6 +29,7 @@
                             <th scope="col">Fecha</th>
                             <th scope="col">Proveedor</th>
                             <th scope="col">Método de Pago</th>
+                            <th scope="col">Total</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Acciones</th>
                         </tr>
@@ -41,12 +42,15 @@
                                     <td>{{register.date}}</td>
                                     <td>{{register.user}}</td>
                                     <td>{{register.payment}}</td>
+                                    <td>{{register.finalPrice}}</td>
                                     <td>{{register.status}}</td>
                                     <td>
                                         {% if register.status == "Abierta" %}
-                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
+                                            <a href="{% url 'buy-modal' modal='editar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
                                             {% if user.is_staff %}
-                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>
+                                                {% if null_detail == False %}
+                                                <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>
+                                                {% endif %}
                                             {% endif %}
                                             <a href="{% url 'buy-detail' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/plus.svg' %}" alt=""></a> 
                                         {% elif register.status == "Cerrada" %}
