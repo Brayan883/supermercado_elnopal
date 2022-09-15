@@ -51,7 +51,10 @@
               <strong style="display: none;" class="descripcion" > {{product.description}} </strong>
               <button type="button" class="btn botonAgregar d-block"  >Agregar</button>
           </div>
-        </div>
+      </div>
+      <div class="alert alert-danger my-3 w-75 text-center" id="alerta_busqueda"  style="display: none !important;" role="alert">
+        <strong>Tu bùsqueda no se encuentra</strong> 
+      </div>
     {% endfor %}
   </div>
    {% include 'partials/alertas.html' %}
