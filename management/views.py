@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
 # Create your views here.
+
 def index_admin(request):
     location = True
     admin = True
@@ -186,7 +187,7 @@ def category_modal(request, modal, pk):
             messages.success(request, f'La categoría {categoryName} se eliminó correctamente!')
             return redirect ('category')
         else:
-            form = SubcategoryForm()
+            form = CategoryForm()
         
     
     
@@ -441,7 +442,8 @@ def provider_modal(request, modal, pk):
             messages.success(request, f'El proveedor {providerName} se eliminó correctamente!')
             return redirect ('provider')
         else:
-            form=ProviderForm()
+            form=ProviderForm()                  
+            
     elif modal == 'editar':
         modal_title = 'Editar proveedor'
         modal_txt = 'editar el proveedor'
@@ -450,7 +452,6 @@ def provider_modal(request, modal, pk):
         if request.method == 'POST':
             print('----------------------------------------EDITANDO')                
             if form.is_valid():
-                form.save()
                 providerName = form.cleaned_data.get('name')
                 messages.success(request, f'El proveedor {providerName} se editó correctamente!')
                 return redirect ('provider')
