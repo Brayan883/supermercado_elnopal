@@ -6,7 +6,7 @@ from personal.views import *
 urlpatterns = [
     path('',index_admin, name="index-admin"),
     path('backup/<str:tipo>/', backup , name="backup"), 
-        
+    
     path('categoria/', category, name="category"),
     path('categoria/<str:modal>/<int:pk>', category_modal, name='category-modal'),
     path('subcategoria/', subcategory, name="subcategory"),
@@ -21,12 +21,10 @@ urlpatterns = [
     path('usuario/<str:modal>/<int:pk>', user_modal, name="user-modal"),
     
     path('compra/', buy, name="buy"),
-    path('compra/<str:modal>/<int:pk>', buy_modal, name="buy-modal"),
     path('compra/detalle/<int:pk>', detail_buy, name="buy-detail"),
-
+    
     path('venta/', sale, name="sale"),
     path('venta/detalle/<int:pk>', detail_sale, name="sale-detail"),
-
 
 ]
 
