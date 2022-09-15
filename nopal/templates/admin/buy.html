@@ -46,7 +46,7 @@
                                     <td>{{register.status}}</td>
                                     <td>
                                         {% if register.status == "Abierta" %}
-                                            <a href="{% url 'buy-modal' modal='editar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
+                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
                                             {% if user.is_staff %}
                                                 {% if null_detail == False %}
                                                 <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a>

@@ -20,14 +20,9 @@ urlpatterns = [
     path('usuario/<str:modal>/<int:pk>', user_modal, name="user-modal"),
     
     path('compra/', buy, name="buy"),
-    path('compra/<str:modal>/<int:pk>', buy_modal, name="buy-modal"),
     path('compra/detalle/<int:pk>', detail_buy, name="buy-detail"),
-    path('venta/detalle/<str:modal>/<int:pk>/', detailbuy_modal, name="detail-modal"),
-    # path('compra/detalle/<str:modal>/<int:pk>', detail_buy_modal, name="buy-detail-modal"),
     
     path('venta/', sale, name="sale"),
-    path('venta/<str:modal>/<int:pk>', sale_modal, name="sale-modal"),
     path('venta/detalle/<int:pk>', detail_sale, name="sale-detail"),
-    path('venta/detalle/<str:modal>/<int:pk>/', detailsale_modal, name="detail-modal"),
     
 ]
