@@ -1,6 +1,6 @@
 from django import forms
 from management.models import *
-from django.contrib.auth.forms import UserCreationForm
+
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
@@ -100,6 +100,3 @@ class BackupForm(forms.ModelForm):
             'name':forms.TextInput(attrs={'class':'form-control'}),
             'file':forms.FileInput(attrs={'class':'form-control'})
         }
-        
-class customuserform( UserCreationForm):
-    pass

@@ -1,11 +1,10 @@
 from ast import Pass
 from multiprocessing import context
 from django.shortcuts import render , redirect
-from management.forms import customuserform
 from management.models import *
 from django.contrib import messages
 from nopal.carrito import Carro
-from django.contrib.auth import authenticate , login
+
 # Create your views here.
 def index_user(request):
     title_pag="Inicio"
@@ -76,24 +75,4 @@ def gestion_usuario(request):
         'title_pag':title_pag
     }
     return render(request, "user/gestionusuario.html",context)
-
-def registro(request):
-    location = True
-    if request.method == "POST":
-        print('aksjhjhasaghs', request.POST)
-        formulario = customuserform(data=request.POST)
-        if formulario.is_valid():
-            formulario.save()
-            user = authenticate(username=formulario.cleaned_data["username"] , password= formulario.cleaned_data["password1"] )
-            login(request, user)
-            messages.success(request, 'te has registrado')
-            return redirect(to='admin-login')
-    else:
-        form = customuserform()
-    context = {
-       'location':location,
-       'form':form
-    }    
-
-    return render(request, 'admin/registro.html', context)
     
