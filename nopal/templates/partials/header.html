@@ -109,7 +109,7 @@
 
                                 {% endif %}
                         {% for sub in MENU_USER_SUBCATEGORIA %}
-                        {% if subcategory.status %}
+                        {% if sub.status %}
                             {% if sub.category_id == category.id %}
                                 <form action="" method="POST">
                                     {% csrf_token %}

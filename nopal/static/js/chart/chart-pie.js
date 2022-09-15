@@ -3,7 +3,7 @@ Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSyste
 Chart.defaults.global.defaultFontColor = '#292b2c';
 
 // Bar Chart Example
-var ctx = document.getElementById("tapas-grupos");
+var ctx = document.getElementById("registros-grupos");
 var myLineChart = new Chart(ctx, {
   type: 'polarArea',
   data: {

@@ -1,3 +1,4 @@
+from enum import unique
 import os
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -67,7 +68,7 @@ class Product(models.Model):
 class Provider(models.Model):
     name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False)
     phone = models.CharField(max_length=10, verbose_name=u"Teléfono", blank=True)
-    email = models.EmailField(max_length=254, verbose_name=u"Correo Electrónico")
+    email = models.EmailField(max_length=254, verbose_name=u"Correo Electrónico", unique=True)
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return (self.name)
@@ -132,7 +133,6 @@ class Sale(models.Model):
         verbose_name_plural = "Ventas"
         
 class DetailSale(models.Model):
-    date = models.DateField(auto_now=True, verbose_name="Fecha de Venta")
     sale = models.ForeignKey(Sale, on_delete=models.SET_NULL, null=True, verbose_name=u"Id Venta")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL,null=True,verbose_name=u"Producto")
     amount = models.PositiveIntegerField(validators=[MinValueValidator(1)],default=1, verbose_name=u"Cantidad")
