@@ -44,7 +44,7 @@ class Brand(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=50,  unique=True, verbose_name=u"Nombre", blank=False)
-    price = models.FloatField(blank=False, verbose_name=u"Precio")
+    price = models.IntegerField(blank=False, verbose_name=u"Precio")
     description = models.TextField(max_length=150, blank=True, verbose_name=u"Descripción")
     subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, null=True, verbose_name=u"Subcategoría")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, verbose_name=u"Marca")

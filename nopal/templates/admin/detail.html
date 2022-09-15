@@ -19,7 +19,7 @@
                         style="width: 120px;" >Agregar</button>
                     </form>
                 </div>
-                <h2>Total a pagar: {{total}}</h2>
+                <h2>Total a pagar: {{factura.finalPrice}}</h2>
             </div>
             <div class="col-md-8">
                 <table id="tabla" class="display table table-striped table-hover text-nowrap mt-3" style="width:100%">
@@ -48,14 +48,6 @@
                         {% endfor %}
                    </tbody>
                 </table>
-
-                {% if buy_template %}
-                        <a href="" class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
-                        style="width: 120px;">Cerrar Compra</a>
-                {% else %}
-                        <a href="" class="btn_agregar d-block m-auto text-center text-decoration-none py-1 rounded border border-none"
-                        style="width: 120px;">Cerrar factura</a>
-                {% endif  %} 
 
                 {% if messages %}
                 {% for message in messages %}

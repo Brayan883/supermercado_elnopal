@@ -4,7 +4,7 @@ from personal.models import *
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = '__all__'    
+        fields = ['username','name','lastName','tDocument','nDocument','phone','dateBirth','email','user_admin']  
         widgets={
             'dateBirth':forms.DateInput(format=(' %m/%d/%Y'),
                                     attrs={'class':'form-control',
