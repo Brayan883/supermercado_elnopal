@@ -31,7 +31,7 @@ class Subcategory(models.Model):
         verbose_name_plural = "Subcategorías"
 
 class Brand(models.Model):
-    name = models.CharField(max_length=50, verbose_name=u"Brand", blank=False, db_column="Nombre")
+    name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False, db_column="Nombre")
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return (self.name)
@@ -43,7 +43,7 @@ class Brand(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False)
-    price = models.FloatField(blank=False, verbose_name=u"Precio")
+    price = models.IntegerField(blank=False, verbose_name=u"Precio")
     description = models.TextField(max_length=150, blank=True, verbose_name=u"Descripción")
     subcategory = models.ForeignKey(Subcategory, on_delete=models.SET_NULL, null=True, verbose_name=u"Subcategoría")
     brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, null=True, verbose_name=u"Marca")
@@ -67,7 +67,7 @@ class Product(models.Model):
 class Provider(models.Model):
     name = models.CharField(max_length=50, verbose_name=u"Nombre", blank=False)
     phone = models.CharField(max_length=10, verbose_name=u"Teléfono", blank=True)
-    email = models.EmailField(max_length=254, verbose_name=u"Correo Electrónico")
+    email = models.EmailField(unique=True, max_length=254, verbose_name=u"Correo Electrónico")
     status = models.BooleanField(default=True)
     def __str__(self) -> str:
         return (self.name)
@@ -88,7 +88,7 @@ class Status(models.TextChoices):
         
 class Buy(models.Model):
     date = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de Compra")
-    provider = models.ForeignKey(Provider, on_delete=models.SET_NULL, null=True, verbose_name=u"Proveedor")
+    user = models.ForeignKey(Provider, on_delete=models.SET_NULL, null=True, verbose_name=u"Proveedor")
     payment = models.CharField(max_length=11, choices=Payment.choices, default=Payment.eft, verbose_name=u"Método de Pago", blank=False)
     finalPrice = models.IntegerField(default=0, null=False, blank=True)
     status = models.CharField(max_length=10, choices=Status.choices, verbose_name="Estado", default=Status.ABIERTA)
@@ -132,7 +132,6 @@ class Sale(models.Model):
         verbose_name_plural = "Ventas"
         
 class DetailSale(models.Model):
-    date = models.DateField(auto_now=True, verbose_name="Fecha de Venta")
     sale = models.ForeignKey(Sale, on_delete=models.SET_NULL, null=True, verbose_name=u"Id Venta")
     product = models.ForeignKey(Product, on_delete=models.SET_NULL,null=True,verbose_name=u"Producto")
     amount = models.PositiveIntegerField(validators=[MinValueValidator(1)],default=1, verbose_name=u"Cantidad")
@@ -149,6 +148,6 @@ def validate_file_extension(value):
         raise ValidationError('Archivo no válido')
 
 class Backup(models.Model):
-    name = models.CharField(max_length = 200,default="Copia de Seguridad", blank=True)
-    file = models.FileField(upload_to="backup",validators=[validate_file_extension])
+    name = models.CharField(max_length = 200,default="Copia de Seguridad", blank=True, verbose_name=u"Nombre del Archivo")
+    file = models.FileField(upload_to="backup",validators=[validate_file_extension], verbose_name=u"Archivo")
     date = models.DateTimeField(auto_now = True)

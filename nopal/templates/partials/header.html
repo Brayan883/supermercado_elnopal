@@ -8,11 +8,11 @@
                 <img src="{% static 'img/Logo.png' %}" id="nopal" width="250px" alt="Logo - ElNopal Supermercado">
             </div>
             <div class="col container-fluid d-flex justify-content-center align-items-center px-0">
-                <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);" href="{% url 'admin-login' %}"><figure class="d-flex flex-column px-4">
+                <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);" href="{% url 'inicio-sesion' %}"><figure class="d-flex flex-column px-4">
                     <img src="{% static 'img/icons/user.svg'%}" id="user" class="mx-auto d-block" width="45" alt="Administrador">
-                    <a class="text-decoration-none" href="{% url 'admin-login' %}" id="texto">{{user.get_username}}</a>
+                    <a class="text-decoration-none" href="{% url 'inicio-sesion' %}" id="texto">{{user.get_username}}</a>
 
-                    {% comment %} <a class="text-decoration-none" href="{% url 'admin-login' %}" id="texto">Iniciar sesión</a> {% endcomment %}
+                    {% comment %} <a class="text-decoration-none" href="{% url 'inicio-sesion' %}" id="texto">Iniciar sesión</a> {% endcomment %}
                 </figure></a>
                 <a class="text-decoration-none p-0" style="color: var(--verdeoscuro);"  href="{% url 'inicio' %}"><figure class="d-flex flex-column align-items-center px-4">
                     <img src="{% static 'img/icons/exit.svg' %}" id="salir" class="mx-auto d-block" width="45" alt="Salir">
@@ -82,7 +82,7 @@
 
                     <figure class="d-flex flex-column align-items-center  px-4">
                         <img src="{% static 'img/icons/user.svg' %}" id="user" data-bs-toggle="modal" data-bs-target="#modalSesion"class="mx-auto d-block my-2" width="45" alt="">
-                        <a href="{% url 'admin-login' %}" id="texto" class="text-decoration-none p-0" style="color: var(--verdeoscuro);" >Iniciar sesión</a>
+                        <a href="{% url 'inicio-sesion' %}" id="texto" class="text-decoration-none p-0" style="color: var(--verdeoscuro);" >Iniciar sesión</a>
                     </figure>
                     <figure class="d-flex flex-column align-items-center px-4">
                         <img src="{% static 'img/icons/shopping-car.svg' %}" id="carrito" class="mx-auto d-block my-2" width="45" alt="">

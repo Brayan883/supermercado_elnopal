@@ -3,12 +3,12 @@
 {% block title %}{{title_pag}} - El Nopal Supermercado{% endblock title %}
 {% load static %}
 {% block contenido %}
-<div>
-    <section class="container p-5 h-auto" id="mode-cards"data-admin id="cuerpo" style="width: 95%">
+<div id="fondo_cuerpo">
+    <section class="container bg-white p-5 h-auto" data-admin id="cuerpo" style="width: 95%">
         <h1>Gestionar {{title_pag}}</h1>
         <div class="row my-4">
             <div class="col-md-4">
-                <div class="border p-3 rounded shadow mt-3" id="mode-cards">
+                <div class="border bg-white p-3 rounded shadow mt-3" id="mode-cards">
                     <h3 class="text-start">Nuevo Registro </h3>
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
@@ -35,11 +35,11 @@
                     {% for register in registers %}
                             {% if register.status %}
                                 <tr>
-                                    <td id="texto">{{register.name}}</td>
-                                    <td id="texto">{{register.category}}</td>
-                                    <td id="texto">{{register.image}}</td>
-                                    <td><a href="{%url 'subcategory-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" id="edit" alt=""></a>
-                                        <a href="{%url 'subcategory-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" id="eliminar" alt=""></a> 
+                                    <td>{{register.name}}</td>
+                                    <td>{{register.category}}</td>
+                                    <td>{{register.image}}</td>
+                                    <td><a href="{%url 'subcategory-modal' modal='editar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" alt=""></a>
+                                        <a href="{%url 'subcategory-modal' modal='eliminar' pk=register.id%}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" alt=""></a> 
                                     </td>    
                                 </tr>
                             {% endif %}
@@ -60,5 +60,5 @@
         </div>
     </section>
 </div>
-{% include 'partials/accesibilidad.html' %}
+
 {% endblock %}

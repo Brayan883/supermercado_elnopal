@@ -1,61 +1,28 @@
 import imp, os
 from datetime import datetime, date
 from multiprocessing import context
-from django.shortcuts import render , redirect
-from django.contrib import messages
-from django.http import  JsonResponse
+from django.shortcuts import redirect, render
 from management.forms import *
-from management.models import *
 from personal.forms import *
+from django.contrib import messages
+from management.models import *
 from personal.models import *
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
-# Create your views here.
-# def index_admin(request):
-#     location = True
-#     admin = True
-#     title_pag = "Menú de Administracion"
-#     context = {
-#         'title_pag':title_pag,
-#         'admin':admin,
-#         'location':location,
-#     }
-#     return render(request, "admin/index-admin.html", context)
+
 def index_admin(request):
     location = True
     admin = True
     title_pag = "Menú de Administracion"
-    tapas=DetailSale.objects.all()
-    
-    tapas_stats=tapas.values('product').annotate(total_tapas=Sum(('amount'), output_field=models.PositiveIntegerField())).order_by('total_tapas')
-    total_tapas=DetailSale.objects.aggregate(Sum('amount'))['amount__sum']
-
-    for i in tapas_stats:
-        i['product']=Product.objects.get(id=i['product'])
-    tapas_grupos=tapas_stats.all()
-    tapas_grupos_final={}
-    for j in tapas_grupos:
-        j['product']=Product.objects.get(id=j['product']).subcategory
-        if tapas_grupos_final.get(j['product']) != None:
-           tapas_grupos_final[j['product']]+= j['total_tapas']
-        else:
-           tapas_grupos_final[j['product']]= j['total_tapas']
-
-    fecha_stats=tapas.values('date').annotate(total_tapas=Sum(('amount'), output_field=models.PositiveIntegerField()))
     context = {
         'title_pag':title_pag,
         'admin':admin,
         'location':location,
-        'tapas_stats':tapas_stats,
-        'fecha_stats':fecha_stats,
-        'total_tapas':total_tapas,
-        'tapas_grupos':tapas_grupos_final
     }
     return render(request, "admin/index-admin.html", context)
 
 ########################### SUBCATEGORY ############################
-
 def subcategory(request):
     location = True
     admin = True
@@ -85,9 +52,12 @@ def subcategory_modal(request, modal, pk):
     modal_title = ''
     modal_txt = ''
     modal_submit = ''
-    url_back="/g-contabilidad/subcategoria/"
+    url_back="/administracion/subcategoria/"
     registers = Subcategory.objects.all()
     register_id = Subcategory.objects.get(id=pk)
+    
+    
+    
     if modal == 'eliminar':
         modal_title = 'Eliminar subcategoría'
         modal_txt = 'eliminar la subcategoría'
@@ -105,6 +75,9 @@ def subcategory_modal(request, modal, pk):
             return redirect ('subcategory')
         else:
             form=SubcategoryForm()
+            
+            
+            
     elif modal == 'editar':
         modal_title = 'Editar subcategoría'
         modal_txt = 'editar la subcategoría'
@@ -164,25 +137,31 @@ def category_modal(request, modal, pk):
     modal_title = ''
     modal_txt = ''
     modal_submit = ''
-    url_back="/g-contabilidad/categoria/"
+    url_back="/administracion/categoria/"
     registers = Category.objects.all()
     register_id = Category.objects.get(id=pk)
+    
+    
+    
     if modal == 'eliminar':
         modal_title = 'Eliminar categoría'
         modal_txt = 'eliminar la categoría'
         modal_submit = 'eliminar'
-        form = CategoryForm(request.POST, request.FILES)
-        if request.method == 'POST':
+        form = SubcategoryForm(request.POST, request.FILES)
+        if request.method == 'GET':
             print('----------------------------------------ELIMINANDO')
             Category.objects.filter(id=pk).update(
                 status = False
             )
+            print('Eliminado')
             categoryName = register_id.name.title()
             messages.success(request, f'La categoría {categoryName} se eliminó correctamente!')
-
             return redirect ('category')
         else:
-            form=CategoryForm()
+            form = SubcategoryForm()
+        
+    
+    
     elif modal == 'editar':
         modal_title = 'Editar categoría'
         modal_txt = 'editar la categoría'
@@ -197,6 +176,10 @@ def category_modal(request, modal, pk):
                 return redirect ('category')
         else:
             form = CategoryForm(instance=register_id)
+            
+            
+            
+            
     context ={
         'form':form,
         'modal_title':modal_title,
@@ -248,14 +231,13 @@ def brand_modal(request, modal, pk):
     location = True
     admin = True
     modal_submit = ''
-    url_back="/g-contabilidad/marca/"
+    url_back="/administracion/marca/"
     registers = Brand.objects.all()
     register_id = Brand.objects.get(id=pk)
     if modal == 'eliminar':
         modal_title = 'Eliminar marca'
         modal_txt = 'eliminar la marca'
         modal_submit = 'eliminar'
-        form = BrandForm(request.POST, request.FILES)
         if request.method == 'POST':
             print('----------------------------------------ELIMINANDO')
             Brand.objects.filter(id=pk).update(
@@ -294,6 +276,7 @@ def brand_modal(request, modal, pk):
         'location':location,
     }
     return render(request, 'admin/modal-brand.html', context)
+
 ############################# PRODUCT ##############################
 def product(request):
     location = True
@@ -323,7 +306,6 @@ def product(request):
         'atributes':atributes
     }
     return render(request, 'admin/product.html', context)
-
 def product_modal(request, modal, pk):
     title_pag = "Producto"
     modal_title = ''
@@ -331,7 +313,7 @@ def product_modal(request, modal, pk):
     location = True
     admin = True
     modal_submit = ''
-    url_back="/g-contabilidad/producto/"
+    url_back="/administracion/producto/"
     registers = Product.objects.all()
     register_id = Product.objects.get(id=pk)
     if modal == 'eliminar':
@@ -414,7 +396,7 @@ def provider_modal(request, modal, pk):
     admin = True
     modal_txt = ''
     modal_submit = ''
-    url_back="/g-contabilidad/proveedor/"
+    url_back="/administracion/proveedor/"
     registers = Provider.objects.all()
     register_id = Provider.objects.get(id=pk)
     if modal == 'eliminar':
@@ -497,7 +479,7 @@ def user_modal(request, modal, pk):
     location = True
     admin = True
     modal_submit = ''
-    url_back="/g-contabilidad/usuario/"
+    url_back="/administracion/usuario/"
     registers = User.objects.all()
     register_id = User.objects.get(id=pk)
     if modal == 'eliminar':
@@ -543,7 +525,61 @@ def user_modal(request, modal, pk):
         'location':location,
     }
     return render(request, 'admin/modal-user.html', context)
-############################### BUY ################################
+############################# BACKUP ###############################
+def export_data():
+    date_now = date.today()
+    print('JUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEPUTA')
+    os.system(f"mysqldump --add-drop-table --column-statistics=0 --password=Angie1053442155 -u root db_elnopal> nopal/static/backup/BKP_{date_now}.sql")
+    print('-------------------------------------------------------Hecho')
+def import_data(file):
+    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LISTO PA´ IMPRIMIR')
+    try:
+        print('------------------------IMPORTAR')
+        os.system(f"mysql --password=Angie1053442155 -u root db_elnopal < {file[1:]}")
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><Salio')
+    except:
+        print('<<<<<<<<<<<<<<<<<<<<<<<<<<<< CHALE')
+        print("Problemas al importar")
+def backup(request, tipo):
+    title_pag = "Backup"
+    location = True
+    admin = True
+    example_dir = 'nopal/static/backup/'
+    with os.scandir (example_dir) as ficheros:
+        ficheros = [fichero.name for fichero in ficheros if fichero.is_file()]
+    print(ficheros)
+    backups = Backup.objects.all()
+    if request.method == 'POST' and tipo== "U":
+        print('----------------------------------INTENTO')
+        form = BackupForm(request.POST, request.FILES)
+        if form.is_valid():
+            name= request.POST['name']
+            file = request.FILES['file']
+            insert = Backup(name=name, file=file)
+            import_data(insert.file.url)
+            insert.save()
+            print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUARDÓ')
+            return redirect('backup','A')
+        else:
+            print( ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error al procesar el formulario")
+              
+    elif request.method == 'POST' and tipo== "D":
+        export_data()
+        return redirect('backup','A')
+    
+    else:
+        form = BackupForm()
+        
+    context ={
+        "ficheros":ficheros,
+        "form":form,
+        "backups":backups,
+        'title_pag':title_pag,
+        'admin':admin,
+        'location':location
+    }
+    return render(request, 'admin/backup.html',context) 
+
 def buy(request):
     location = True
     admin = True
@@ -558,7 +594,7 @@ def buy(request):
             date_aux = datetime.now().strftime("%Y-%m-%d")
             buy = Buy.objects.create(
                 date = date_aux,
-                provider = form.cleaned_data['provider'],
+                user = form.cleaned_data['user'],
                 payment = request.POST['payment']
             )
             messages.success(
@@ -576,71 +612,71 @@ def buy(request):
     }
     return render(request, 'admin/buy.html', context)
 
-def buy_modal(request, modal, pk):
-    title_pag = "Compra"
-    modal_title = ''
-    modal_txt = ''
-    location = True
-    admin = True
-    modal_submit = ''
-    url_back="/g-contabilidad/compra/"
-    registers = Buy.objects.all()
-    register_id = Buy.objects.get(id=pk)
-    detail = DetailBuy.objects.get(buy=pk)
+# def buy_modal(request, modal, pk):
+#     title_pag = "Compra"
+#     modal_title = ''
+#     modal_txt = ''
+#     location = True
+#     admin = True
+#     modal_submit = ''
+#     url_back="/administracion/compra/"
+#     registers = Buy.objects.all()
+#     register_id = Buy.objects.get(id=pk)
+#     detail = DetailBuy.objects.get(buy=pk)
     
-    if modal == 'eliminar':
-        if detail.exists():
-            messages.warning(request, f'No se puede eliminar una compra con detalles')
-        else:
-            modal_title = 'Eliminar compra'
-            modal_txt = 'eliminar la compra'
-            modal_submit = 'eliminar'
-            form = BuyForm(request.POST, request.FILES)
-            if request.method == 'POST':
-                print('----------------------------------------ELIMINANDO')
-                Buy.objects.filter(id=pk).update(
-                    status = 'Anulada'
-                )
-                buy_id = register_id.id()
-                messages.success(request, f'La compra {buy_id} se anuló correctamente!')
-                return redirect ('buy')
-            else:
-                form = BuyForm()  
+#     if modal == 'eliminar':
+#         if detail.exists():
+#             messages.warning(request, f'No se puede eliminar una compra con detalles')
+#         else:
+#             modal_title = 'Eliminar compra'
+#             modal_txt = 'eliminar la compra'
+#             modal_submit = 'eliminar'
+#             form = BuyForm(request.POST, request.FILES)
+#             if request.method == 'POST':
+#                 print('----------------------------------------ELIMINANDO')
+#                 Buy.objects.filter(id=pk).update(
+#                     status = 'Anulada'
+#                 )
+#                 buy_id = register_id.id()
+#                 messages.success(request, f'La compra {buy_id} se anuló correctamente!')
+#                 return redirect ('buy')
+#             else:
+#                 form = BuyForm()  
                 
-    elif modal == 'editar':
-        modal_title = 'Editar compra'
-        modal_txt = 'editar la compra'
-        modal_submit = 'guardar'
-        form = BuyForm(request.POST, request.FILES, instance=register_id)
-        if request.method == 'POST':
-            print('----------------------------------------EDITANDO')                
-            if form.is_valid():
-                form.save()
-                buy_id = form.cleaned_data.get('id')
-                messages.success(request, f'La compra {buy_id} se editó correctamente!')
-                return redirect ('buy')
-        else:
-            form = BuyForm(instance=register_id)
+#     elif modal == 'editar':
+#         modal_title = 'Editar compra'
+#         modal_txt = 'editar la compra'
+#         modal_submit = 'guardar'
+#         form = BuyForm(request.POST, request.FILES, instance=register_id)
+#         if request.method == 'POST':
+#             print('----------------------------------------EDITANDO')                
+#             if form.is_valid():
+#                 form.save()
+#                 buy_id = form.cleaned_data.get('id')
+#                 messages.success(request, f'La compra {buy_id} se editó correctamente!')
+#                 return redirect ('buy')
+#         else:
+#             form = BuyForm(instance=register_id)
             
-    elif modal == 'ver':
-        print('VER')
+#     elif modal == 'ver':
+#         print('VER')
         
         
         
-    context ={
-        'form':form,
-        'modal_title':modal_title,
-        'modal_txt':modal_txt,
-        'modal_submit':modal_submit,
-        'url_back':url_back,
-        'modal':modal,
-        'register_id':register_id,
-        'title_pag':title_pag,
-        'admin':admin,
-        'registers':registers,
-        'location':location,
-    }
-    return render(request, 'admin/modal-user.html', context)
+#     context ={
+#         'form':form,
+#         'modal_title':modal_title,
+#         'modal_txt':modal_txt,
+#         'modal_submit':modal_submit,
+#         'url_back':url_back,
+#         'modal':modal,
+#         'register_id':register_id,
+#         'title_pag':title_pag,
+#         'admin':admin,
+#         'registers':registers,
+#         'location':location,
+#     }
+#     return render(request, 'admin/modal-user.html', context)
 
 def detail_buy(request, pk):
     location = True
@@ -741,7 +777,6 @@ def detail_buy(request, pk):
     }
     return render(request, 'admin/detail.html', context)
 
-############################### SALE ################################
 
 def sale(request):
     location = True
@@ -781,69 +816,69 @@ def sale(request):
     }
     return render(request, 'admin/sale.html', context)
 
-def sale_modal(request, modal, pk):
-    title_pag = "Venta"
-    modal_title = ''
-    modal_txt = ''
-    location = True
-    admin = True
-    modal_submit = ''
-    url_back="/g-contabilidad/venta/"
-    registers = Sale.objects.all()
-    register_id = Sale.objects.get(id=pk)
-    detail = DetailSale.objects.get(sale=pk)
+# def sale_modal(request, modal, pk):
+#     title_pag = "Venta"
+#     modal_title = ''
+#     modal_txt = ''
+#     location = True
+#     admin = True
+#     modal_submit = ''
+#     url_back="/administracion/venta/"
+#     registers = Sale.objects.all()
+#     register_id = Sale.objects.get(id=pk)
+#     detail = DetailSale.objects.get(sale=pk)
     
-    if modal == 'eliminar':
-        if detail.exists():
-            messages.warning(request, f'No se puede eliminar una venta con detalles')
-        else:
-            modal_title = 'Eliminar venta'
-            modal_txt = 'eliminar la venta'
-            modal_submit = 'eliminar'
-            form = SaleForm(request.POST, request.FILES)
-            if request.method == 'POST':
-                print('----------------------------------------ELIMINANDO')
-                Sale.objects.filter(id=pk).update(
-                    status = 'Anulada'
-                )
-                sale_id = register_id.id()
-                messages.success(request, f'La venta {sale_id} se anuló correctamente!')
-                return redirect ('sale')
-            else:
-                form = SaleForm()  
+#     if modal == 'eliminar':
+#         if detail.exists():
+#             messages.warning(request, f'No se puede eliminar una venta con detalles')
+#         else:
+#             modal_title = 'Eliminar venta'
+#             modal_txt = 'eliminar la venta'
+#             modal_submit = 'eliminar'
+#             form = SaleForm(request.POST, request.FILES)
+#             if request.method == 'POST':
+#                 print('----------------------------------------ELIMINANDO')
+#                 Sale.objects.filter(id=pk).update(
+#                     status = 'Anulada'
+#                 )
+#                 sale_id = register_id.id()
+#                 messages.success(request, f'La venta {sale_id} se anuló correctamente!')
+#                 return redirect ('sale')
+#             else:
+#                 form = SaleForm()  
                 
-    elif modal == 'editar':
-        modal_title = 'Editar venta'
-        modal_txt = 'editar la venta'
-        modal_submit = 'guardar'
-        form = SaleForm(request.POST, request.FILES, instance=register_id)
-        if request.method == 'POST':
-            print('----------------------------------------EDITANDO')                
-            if form.is_valid():
-                form.save()
-                sale_id = form.cleaned_data.get('id')
-                messages.success(request, f'La venta {sale_id} se editó correctamente!')
-                return redirect ('sale')
-        else:
-            form = SaleForm(instance=register_id)
+#     elif modal == 'editar':
+#         modal_title = 'Editar venta'
+#         modal_txt = 'editar la venta'
+#         modal_submit = 'guardar'
+#         form = SaleForm(request.POST, request.FILES, instance=register_id)
+#         if request.method == 'POST':
+#             print('----------------------------------------EDITANDO')                
+#             if form.is_valid():
+#                 form.save()
+#                 sale_id = form.cleaned_data.get('id')
+#                 messages.success(request, f'La venta {sale_id} se editó correctamente!')
+#                 return redirect ('sale')
+#         else:
+#             form = SaleForm(instance=register_id)
             
-    elif modal == 'ver':
-        print('VER')
+#     elif modal == 'ver':
+#         print('VER')
           
-    context ={
-        'form':form,
-        'modal_title':modal_title,
-        'modal_txt':modal_txt,
-        'modal_submit':modal_submit,
-        'url_back':url_back,
-        'modal':modal,
-        'register_id':register_id,
-        'title_pag':title_pag,
-        'admin':admin,
-        'registers':registers,
-        'location':location,
-    }
-    return render(request, 'admin/modal-user.html', context)
+#     context ={
+#         'form':form,
+#         'modal_title':modal_title,
+#         'modal_txt':modal_txt,
+#         'modal_submit':modal_submit,
+#         'url_back':url_back,
+#         'modal':modal,
+#         'register_id':register_id,
+#         'title_pag':title_pag,
+#         'admin':admin,
+#         'registers':registers,
+#         'location':location,
+#     }
+#     return render(request, 'admin/modal-user.html', context)
 
 def detail_sale(request, pk):
     location = True
@@ -943,58 +978,3 @@ def detail_sale(request, pk):
         'total':total,
     }
     return render(request, 'admin/detail.html', context)
-    ############################# BACKUP ###############################
-
-def export_data():
-    date_now = date.today()
-    print('JUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEPUTA')
-    os.system(f"mysqldump --add-drop-table --column-statistics=0 --password=Angie1053442155 -u root db_elnopal> nopal/static/backup/BKP_{date_now}.sql")
-    print('-------------------------------------------------------Hecho')
-def import_data(file):
-    print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LISTO PA´ IMPRIMIR')
-    try:
-        print('------------------------IMPORTAR')
-        os.system(f"mysql --password=Angie1053442155 -u root db_elnopal < {file[1:]}")
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><Salio')
-    except:
-        print('<<<<<<<<<<<<<<<<<<<<<<<<<<<< CHALE')
-        print("Problemas al importar")
-def backup(request, tipo):
-    title_pag = "Backup"
-    location = True
-    admin = True
-    example_dir = 'nopal/static/backup/'
-    with os.scandir (example_dir) as ficheros:
-        ficheros = [fichero.name for fichero in ficheros if fichero.is_file()]
-    print(ficheros)
-    backups = Backup.objects.all()
-    if request.method == 'POST' and tipo== "U":
-        print('----------------------------------INTENTO')
-        form = BackupForm(request.POST, request.FILES)
-        if form.is_valid():
-            name= request.POST['name']
-            file = request.FILES['file']
-            insert = Backup(name=name, file=file)
-            import_data(insert.file.url)
-            insert.save()
-            print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<GUARDÓ')
-            return redirect('backup','A')
-        else:
-            print( ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Error al procesar el formulario")
-              
-    elif request.method == 'POST' and tipo== "D":
-        export_data()
-        return redirect('backup','A')
-    
-    else:
-        form = BackupForm()
-        
-    context ={
-        "ficheros":ficheros,
-        "form":form,
-        "backups":backups,
-        'title_pag':title_pag,
-        'admin':admin,
-        'location':location
-    }
-    return render(request, 'admin/backup.html',context) 

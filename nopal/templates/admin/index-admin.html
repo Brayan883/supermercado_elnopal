@@ -2,18 +2,21 @@
 {% load crispy_forms_tags %}
 {% block title %}Panel Administrativo - El Nopal{% endblock title %}
 {% load static %}
-{% include 'charts/chart-area.html' %}
 {% block contenido %}
 
-<div >
-    <section class="container p-5 h-auto" id="mode-cards" data-admin id="cuerpo" style="width: 95%">
+<div id="fondo_cuerpo">
+    <section class="container bg-white p-5 h-auto" data-admin id="cuerpo" style="width: 95%">
+        <div>
+            <a class="btn_login m-auto mb-3 justify-text-center rounded text-decoration-none" href="{% url 'backup' tipo='R' %}">Generar copia de seguridad</a>
+        </div>
+        
         <div>
             <div class="row">
         
-                <div class="col-xl-6" >
+                <div class="col-xl-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fas fa-chart-area me-1"></i> Ventas por fecha
+                            <i class="fas fa-chart-area me-1"></i> Entregas por fecha
                         </div>
                         <div class="card-body"><canvas id="entrega-fecha" width="100%" height="40"></canvas></div>
                     </div>
@@ -23,7 +26,17 @@
                 <div class="col-xl-6">
                     <div class="card mb-4">
                         <div class="card-header">
-                            <i class="fa-solid fa-chart-column"></i> Ventas Mensuales
+                            <i class="fa-solid fa-chart-pie"></i> Tapas por grupo
+                        </div>
+                        <div class="card-body"><canvas id="tapas-grupos" width="100%" height="40"></canvas></div>
+                    </div>
+                </div>
+        
+        
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="fa-solid fa-chart-column"></i> Entrega Mensual
                         </div>
                         <div class="card-body"><canvas id="entrega-mensual" width="100%" height="40"></canvas></div>
                     </div>
@@ -32,14 +45,14 @@
             </div>
         
             <!-- Datos chart area-->
-            <div class="d-none" id="tags-area">{% for tag in fecha_stats %}{{tag.date}},{% endfor %}</div>
+            <div class="d-none" id="tags-area">{% for tag in fecha_stats %}{{tag.fecha}},{% endfor %}</div>
             <div class="d-none" id="data-area">{% for tag in fecha_stats %}{{tag.total_tapas}},{% endfor %}</div>
         
-            
+            <!-- Datos chart pie-->
+            <div class="d-none" id="tags-pie">{% for key in tapas_grupos %}{{key}},{% endfor %}</div>
+            <div class="d-none" id="data-pie">{{tapas_grupos.values}}</div> 
         </div>
     </section>
 </div>
-{% include 'partials/accesibilidad.html' %}
 
-{% endblock contenido %}
-
+{% endblock %}

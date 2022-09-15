@@ -17,7 +17,7 @@ class SubcategoryForm(forms.ModelForm):
             'name':forms.TextInput(attrs={'class':'form-control'}),
             'category':forms.Select(attrs={'class':'form-control'}),
             'image':forms.FileInput(attrs={'class':'form-control'})
-        }     
+        }
 
 class BrandForm(forms.ModelForm):
     class Meta:
@@ -55,7 +55,7 @@ class ProviderForm(forms.ModelForm):
 class BuyForm(forms.ModelForm):
     class Meta:
         model = Buy
-        fields =['provider','payment']
+        fields =['user','payment']
         widgets = {
             'user':forms.Select(attrs={'class':'form-control'}),
             'payment':forms.Select(attrs={'class':'form-control'})
@@ -91,6 +91,7 @@ class DetailSaleForm(forms.ModelForm):
             'product':forms.Select(attrs={'class':'form-control'}),
             'amount':forms.NumberInput(attrs={'class':'form-control'})
         }
+
      
 class BackupForm(forms.ModelForm):
     class Meta:

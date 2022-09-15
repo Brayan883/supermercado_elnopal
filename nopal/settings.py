@@ -90,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_elnopal',
         'USER':'root',
-        'PASSWORD':'JuliethRojas123.',
+        'PASSWORD':'Angie1053442155',
         'HOST':'localhost',
         'PORT':'3306'
     }
@@ -148,11 +148,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # gestion de logueo
 LOGOUT_REDIRECT_URL = 'inicio'
 LOGIN_REDIRECT_URL = 'index-admin'
-LOGIN_URL="admin-login"
+LOGIN_URL="inicio-sesion"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "rojaseliana146@gmail.com"
-EMAIL_HOST_PASSWORD ="ajrcjkmjevfgojdr"
+EMAIL_HOST_USER = "elnopalduitama@gmail.com"
+EMAIL_HOST_PASSWORD ="khttezozpjxqeqqs"

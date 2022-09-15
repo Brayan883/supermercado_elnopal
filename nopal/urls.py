@@ -21,18 +21,17 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('personal.urls')),
-    path('g-contabilidad/', include('management.urls')),
+    path('administracion/', include('management.urls')),
     
-    
-    #  # Logueo
-    path('admin-login/', auth_views.LoginView.as_view(template_name='login/login.html'), name='admin-login'),
+    # Logueo
+    path('inicio_sesion/', auth_views.LoginView.as_view(template_name='login/login.html'), name='inicio-sesion'),
     path('admin-logout/', auth_views.LogoutView.as_view(), name='admin-logout'),
     
-    #recuperacion
-    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='login/password-email.html',email_template_name='login/password_reset_email.html'),
+    # Reset password
+    path('recuperar_contrasena/', auth_views.PasswordResetView.as_view(template_name='login/password-email.html',email_template_name='login/password-reset-email.html'),
          name='password-reset'),
-    path('reset_password_send/', auth_views.PasswordResetDoneView.as_view(template_name='login/password_reset_done.html'), name='password_reset_done'),
-    path('reset/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='login/new-password.html'), name='password_reset_confirm'),
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='login/account-recovery.html'), name='password_reset_complete'),
-
+    path('recuperar_contrasena_correo/', auth_views.PasswordResetDoneView.as_view(template_name='login/password-reset-done.html'), name='password-reset-done'),
+    path('nueva_contrasena/<uidb64>/<token>', auth_views.PasswordResetConfirmView.as_view(template_name='login/new-password.html'), name='password-reset-confirm'),
+    path('recuperar_completado/', auth_views.PasswordResetCompleteView.as_view(template_name='login/account-recovery.html'), name='password-reset-complete'),
+    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

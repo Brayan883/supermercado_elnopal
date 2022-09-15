@@ -1,8 +1,9 @@
 {% extends 'partials/body_login.html' %}
 {% load crispy_forms_tags %}
-{% block title %}{{titulo_pagina}} - INICIAR SESION{% endblock title %}
+{% block title %}Recuperar contraseña - El Nopal Supermercado{% endblock title %}
 {% load static %}
 {% block contenido %}
+
 <div class="background_login">
     <div class="container_login">
         <div>
@@ -15,7 +16,7 @@
             </div>
 
             <div class="container_subtitle" id="c_bottom">
-                <a class="link_login" href="{% url 'admin-login' %}">Volver al inicio de sesión</a>
+                <a class="link_login" href="{% url 'inicio-sesion' %}">Volver al inicio de sesión</a>
             </div>
         </div>
     </div>

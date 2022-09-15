@@ -1,12 +1,11 @@
 from django.urls import path
-
 from management.views import *
 from personal.views import *
 
 urlpatterns = [
     path('',index_admin, name="index-admin"),
     path('backup/<str:tipo>/', backup , name="backup"), 
-        
+    
     path('categoria/', category, name="category"),
     path('categoria/<str:modal>/<int:pk>', category_modal, name='category-modal'),
     path('subcategoria/', subcategory, name="subcategory"),
@@ -21,12 +20,12 @@ urlpatterns = [
     path('usuario/<str:modal>/<int:pk>', user_modal, name="user-modal"),
     
     path('compra/', buy, name="buy"),
-    path('compra/<str:modal>/<int:pk>', buy_modal, name="buy-modal"),
+    # path('compra/detalle/<str:status>/<int:pk>/', buy_status, name="buy_status"),
+    # path('compra/<str:modal>/<int:pk>', buy_modal, name="buy-modal"),
     path('compra/detalle/<int:pk>', detail_buy, name="buy-detail"),
-
+    # path('compra/detalle/<str:modal>/<int:pk>', detail_buy_modal, name="buy-detail-modal"),
+    
     path('venta/', sale, name="sale"),
+    # path('venta/<str:modal>/<int:pk>', sale_modal, name="sale-modal"),
     path('venta/detalle/<int:pk>', detail_sale, name="sale-detail"),
-
-
 ]
-

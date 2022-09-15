@@ -12,7 +12,7 @@ class User(AbstractBaseUser):
         CE = 'CE',_('Cédula de Extranjeria')
         TI = 'TI',_('Tarjeta de Identidad')
     tDocument = models.CharField(max_length=21,choices=t_Document.choices, verbose_name="Tipo de Documento")
-    nDocument = models.IntegerField(verbose_name="Número de Documento")
+    nDocument = models.IntegerField(verbose_name="Número de Documento", unique=True)
     phone = models.CharField(max_length=10, verbose_name=u"Teléfono")
     dateBirth = models.DateField(verbose_name="Fecha Nacimiento")
     email = models.EmailField(max_length=254, verbose_name=u"Correo Electrónico")
