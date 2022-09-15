@@ -12,50 +12,46 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 
 # Create your views here.
-# def index_admin(request):
-#     location = True
-#     admin = True
-#     title_pag = "Menú de Administracion"
-#     context = {
-#         'title_pag':title_pag,
-#         'admin':admin,
-#         'location':location,
-#     }
-#     return render(request, "admin/index-admin.html", context)
+
 def index_admin(request):
     location = True
     admin = True
     title_pag = "Menú de Administracion"
-    tapas=DetailSale.objects.all()
+    registros=DetailSale.objects.all()
+    registrosci=Sale.objects.all()
     
-    tapas_stats=tapas.values('product').annotate(total_tapas=Sum(('amount'), output_field=models.PositiveIntegerField())).order_by('total_tapas')
-    total_tapas=DetailSale.objects.aggregate(Sum('amount'))['amount__sum']
+    registros_stats=registros.values('product').annotate(total_registros=Sum(('amount'), output_field=models.PositiveIntegerField())).order_by('total_registros')
+    total_registros=DetailSale.objects.aggregate(Sum('amount'))['amount__sum']
 
-    for i in tapas_stats:
+    for i in registros_stats:
         i['product']=Product.objects.get(id=i['product'])
-    tapas_grupos=tapas_stats.all()
-    tapas_grupos_final={}
-    for j in tapas_grupos:
+    registros_grupos=registros_stats.all()
+    registros_grupos_final={}
+    for j in registros_grupos:
         j['product']=Product.objects.get(id=j['product']).subcategory
-        if tapas_grupos_final.get(j['product']) != None:
-           tapas_grupos_final[j['product']]+= j['total_tapas']
+        if registros_grupos_final.get(j['product']) != None:
+           registros_grupos_final[j['product']]+= j['total_registros']
         else:
-           tapas_grupos_final[j['product']]= j['total_tapas']
+           registros_grupos_final[j['product']]= j['total_registros']
 
-    fecha_stats=tapas.values('date').annotate(total_tapas=Sum(('amount'), output_field=models.PositiveIntegerField()))
+    fecha_stats=registrosci.values('date')
+
+    # fecha_stats=registros.values('date').annotate(total_registros=Sum(('amount'), output_field=models.PositiveIntegerField()))
+    
     context = {
         'title_pag':title_pag,
         'admin':admin,
         'location':location,
-        'tapas_stats':tapas_stats,
+        'registros_stats':registros_stats,
         'fecha_stats':fecha_stats,
-        'total_tapas':total_tapas,
-        'tapas_grupos':tapas_grupos_final
+        'total_registros':total_registros,
+        'registros_grupos':registros_grupos_final
     }
     return render(request, "admin/index-admin.html", context)
 
 ########################### SUBCATEGORY ############################
 ########################### SUBCATEGORY ############################
+
 def subcategory(request):
     location = True
     admin = True
@@ -141,6 +137,7 @@ def subcategory_modal(request, modal, pk):
     return render(request, 'admin/modal-category.html', context)
 
 ############################# CATEGORY #############################
+
 def category(request):
     location = True
     admin = True
@@ -163,6 +160,8 @@ def category(request):
         'location':location,
     }
     return render(request, 'admin/category.html', context)
+
+
 def category_modal(request, modal, pk):
     title_pag = "Categoría"
     location = True
@@ -191,7 +190,7 @@ def category_modal(request, modal, pk):
             messages.success(request, f'La categoría {categoryName} se eliminó correctamente!')
             return redirect ('category')
         else:
-            form = SubcategoryForm()
+            form = CategoryForm()
         
     
     
@@ -229,6 +228,7 @@ def category_modal(request, modal, pk):
     return render(request, 'admin/modal-category.html', context)
 
 ############################## BRAND ###############################
+
 def brand(request):
     location = True
     admin = True
@@ -257,6 +257,7 @@ def brand(request):
         'atributes':atributes
     }
     return render(request, 'admin/brand.html', context)
+
 def brand_modal(request, modal, pk):
     title_pag = "Marca"
     modal_title = ''
@@ -311,6 +312,7 @@ def brand_modal(request, modal, pk):
     return render(request, 'admin/modal-brand.html', context)
 
 ############################# PRODUCT ##############################
+
 def product(request):
     location = True
     admin = True
@@ -339,6 +341,7 @@ def product(request):
         'atributes':atributes
     }
     return render(request, 'admin/product.html', context)
+
 def product_modal(request, modal, pk):
     title_pag = "Producto"
     modal_title = ''
@@ -394,6 +397,7 @@ def product_modal(request, modal, pk):
     return render(request, 'admin/modal-product.html', context)
 
 ############################# PROVIDER #############################
+
 def provider(request):
     location = True
     admin = True
@@ -422,6 +426,7 @@ def provider(request):
         'atributes':atributes
     }
     return render(request, 'admin/provider.html', context)
+
 def provider_modal(request, modal, pk):
     title_pag = "Proveedor"
     modal_title = ''
@@ -477,6 +482,7 @@ def provider_modal(request, modal, pk):
     return render(request, 'admin/modal-provider.html', context)
     
 ################################ USER ##############################
+
 def user(request):
     location = True
     admin = True
@@ -505,6 +511,7 @@ def user(request):
         'atributes':atributes
     }
     return render(request, 'admin/user.html', context)
+
 def user_modal(request, modal, pk):
     title_pag = "Usuario"
     modal_title = ''
@@ -573,6 +580,7 @@ def import_data(file):
     except:
         print('<<<<<<<<<<<<<<<<<<<<<<<<<<<< CHALE')
         print("Problemas al importar")
+
 def backup(request, tipo):
     title_pag = "Backup"
     location = True
@@ -644,6 +652,7 @@ def buy(request):
         'buy_template':buy_template,
     }
     return render(request, 'admin/buy.html', context)
+
 def detail_buy(request, pk):
     location = True
     admin = True
@@ -753,6 +762,7 @@ def detail_buy(request, pk):
         'modal':modal
     }
     return render(request, 'admin/detail.html', context)
+
 def sale(request):
     location = True
     admin = True
@@ -790,6 +800,7 @@ def sale(request):
         'buy_template':buy_template,
     }
     return render(request, 'admin/sale.html', context)
+
 def detail_sale(request, pk):
     location = True
     admin = True

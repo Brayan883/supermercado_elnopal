@@ -25,6 +25,7 @@ urlpatterns = [
     
     path('venta/', sale, name="sale"),
     path('venta/detalle/<int:pk>', detail_sale, name="sale-detail"),
+    path('registro/', registro , name='registro' ),
 
 ]
 

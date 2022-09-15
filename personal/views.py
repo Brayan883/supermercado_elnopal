@@ -4,6 +4,9 @@ from django.shortcuts import render , redirect
 from management.models import *
 from django.contrib import messages
 from nopal.carrito import Carro
+from personal.forms import customuserform
+from django.contrib.auth import authenticate , login
+
 
 # Create your views here.
 def index_user(request):
@@ -76,3 +79,23 @@ def gestion_usuario(request):
     }
     return render(request, "user/gestionusuario.html",context)
     
+    
+    
+def registro(request):
+    location = True
+    if request.method == "POST":
+        print('aksjhjhasaghs', request.POST)
+        formulario = customuserform(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(username=formulario.cleaned_data["username"] , password= formulario.cleaned_data["password1"] )
+            login(request, user)
+            messages.success(request, 'te has registrado')
+            return redirect(to='admin-login')
+    else:
+        form = customuserform()
+    context = {
+       'location':location,
+       'form':form
+    }    
+    return render(request, 'admin/registro.html', context)

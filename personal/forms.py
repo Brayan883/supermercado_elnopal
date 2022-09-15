@@ -1,5 +1,7 @@
+from tkinter import Label
 from django import forms
 from personal.models import *
+from  django.contrib.auth.forms import UserCreationForm
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -11,3 +13,6 @@ class UserForm(forms.ModelForm):
                                             'placeholder':'Seleccione la fecha de nacimiento',
                                             'type':'date'})
         }
+        
+class customuserform(UserCreationForm):
+    pass
