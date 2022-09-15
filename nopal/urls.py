@@ -21,7 +21,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('personal.urls')),
-    path('g-contabilidad/', include('management.urls')),
+    path('administracion/', include('management.urls')),
     
     
     #  # Logueo
