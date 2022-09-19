@@ -47,7 +47,7 @@
                                         {% if register.status == "Abierta" %}
                                             <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/update.svg' %}" id="edit" alt=""></a>
                                             {% if user.is_staff %}
-                                            <a href="{% url 'buy-modal' modal='eliminar' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" id="eliminar"  alt=""></a>
+                                            <a href="" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/delete.svg' %}" id="eliminar"  alt=""></a>
                                             {% endif %}
                                             <a href="{% url 'buy-detail' pk=register.id %}" class="btn btn-md border"><img class="img-fluid" src="{% static 'img/icons/plus.svg' %}" alt=""></a> 
                                         {% elif register.status == "Cerrada" %}

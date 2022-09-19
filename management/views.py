@@ -557,7 +557,6 @@ def user_modal(request, modal, pk):
 ############################# BACKUP ###############################
 def export_data():
     date_now = date.today()
-    print('JUEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEPUTA')
     os.system(f"mysqldump --add-drop-table --column-statistics=0 --password=Angie1053442155 -u root db_elnopal> nopal/static/backup/BKP_{date_now}.sql")
     print('-------------------------------------------------------Hecho')
 def import_data(file):
