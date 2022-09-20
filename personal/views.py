@@ -4,17 +4,16 @@ from django.shortcuts import render , redirect
 from management.models import *
 from django.contrib import messages
 from nopal.carrito import Carro
-
+from django.contrib.auth import authenticate , login
+from personal.forms import customuserform
 # Create your views here.
 def index_user(request):
     title_pag="Inicio"
     products = Product.objects.all()
     categories= Subcategory.objects.all()
     if request.method == "POST":                                                                    
-        ids =  list(request.POST)[1]
-        xd = request.POST                                                                   
+        ids =  list(request.POST)[1]                                                                
         products = Product.objects.all().filter(subcategory_id = ids)
-        print('aknsjnajsnjnajsnajnsjnjansjnas' , ids , xd )
     context={
         'title_pag':title_pag,
         'categories':categories,
@@ -33,7 +32,6 @@ def carrito(request):
 def agregar_elemento(request, product_id):   
     carro = Carro(request)
     product_db = Product.objects.get(id=product_id)
-    print('skmdkmskmkdmskmdnjsnjndjnjdn3', product_id , product_db.name  )
     carro.agregar(producto=product_db)
     messages.success(request,'Se ha añadido correctamente el producto.')
     return redirect("inicio")
@@ -75,4 +73,22 @@ def gestion_usuario(request):
         'title_pag':title_pag
     }
     return render(request, "user/gestionusuario.html",context)
-    
+
+def registro(request):
+     location = True
+     if request.method == "POST":
+        formulario = customuserform(data=request.POST)
+        if formulario.is_valid():
+            formulario.save()
+            user = authenticate(username=formulario.cleaned_data["username"] , password= formulario.cleaned_data["password1"] )
+            login(request, user)
+            messages.success(request, 'te has registrado')
+            return redirect(to='admin-login')
+     else:
+        form = customuserform()
+     context = {
+            'location':location,
+            'form':form
+            }    
+     return render(request, 'admin/registro.html', context)
+
