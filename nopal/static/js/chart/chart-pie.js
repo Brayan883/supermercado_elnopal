@@ -16,6 +16,7 @@ var myLineChart = new Chart(ctx, {
       }
     ]
   },
+  
   options: {
     responsive: true,
     plugins: {

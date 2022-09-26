@@ -1,6 +1,7 @@
 from enum import unique
 import os
 from django.db import models
+from datetime import datetime
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinValueValidator
 from django.core.exceptions import ValidationError
@@ -111,7 +112,7 @@ class DetailBuy(models.Model):
         verbose_name_plural = "Detalle de compras"
         
 class Sale(models.Model):
-    date = models.DateField(auto_now=True, verbose_name="Fecha de Venta")
+    date = models.DateField(auto_now=True,  verbose_name="Fecha de Venta")
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name=u"Empleado")
     client = models.CharField(blank=True, null=False, max_length=50, verbose_name=u"Cliente", default=u"Cliente local")
     nDocument = models.CharField(blank=True, null=False, max_length=20, verbose_name=u"Número de Documento / NIT", default=1234567890)
@@ -141,7 +142,21 @@ class DetailSale(models.Model):
     class Meta:
         verbose_name="Detalle de venta"
         verbose_name_plural = "Detalle de ventas"
-        
+
+    # def get_graph_year(self):
+    #     data=[]
+    #     year= datetime.now().year
+    #     for m in range(1,13):
+    #         total = DetailSale.filter(date_joined__year=year, date_joined__mont=m).annotate(('total_registros'))
+    #         data.append(float(total))
+    #     return data 
+    
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["get_graph_year"] = self.get_graph_year()
+    #     return context
+
 def validate_file_extension(value):
     ext = os.path.splitext(value.name)[1]  # [0] returns path+filename
     valid_extensions = ['.sql']
