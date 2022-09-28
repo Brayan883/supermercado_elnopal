@@ -27,34 +27,22 @@ def index_admin(request):
     valor=registros.annotate(total_registros=Sum(('amount'),  output_field=models.IntegerField()))
 
     ventas={"Enero":list(),"Febrero":list(),"Marzo":list(),"Abril":list(),"Mayo":list(),"Junio":list(),"Julio":list(),"Agosto":list(),"Septiembre":list(),"Octubre":list(),"Noviembre":list(),"Diciembre":list(),"Meses":list()}
-        
 
     for mes in range(12):
-        mes=Sale(ventas["Enero"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']) )
-        # ventas["Enero"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])        
-        mes=Sale(ventas["Febrero"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Febrero"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Marzo"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Marzo"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Abril"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Abril"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Mayo"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Mayo"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Junio"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Junio"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Julio"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Julio"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Agosto"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Agosto"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Septiembre"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Septiembre"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Octubre"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Octubre"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Noviembre"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Noviembre"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
-        mes=Sale(ventas["Diciembre"].append(date__month=mes+1, date__year=datetime.now().year)(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  )
-        # ventas["Diciembre"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Enero"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])        
+        ventas["Febrero"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Marzo"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Abril"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Mayo"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Junio"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Julio"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Agosto"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Septiembre"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Octubre"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Noviembre"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
+        ventas["Diciembre"].append(DetailSale.objects.aggregate(Sum('amount'))['amount__sum'])  
 
+        fecha_mes=registrosci.values(date(date__month=mes+1, date__year=datetime.now().year))
 
         for k,item in enumerate(ventas["Enero"]):
             if item==None:
@@ -82,18 +70,32 @@ def index_admin(request):
             if ventas["Diciembre"][k]==None:
                 ventas["Diciembre"][k]=0
 
-        ventas["Meses"].append(Sale("Enero",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Febrero",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Marzo",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Abril",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Mayo",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Junio",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Julio",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Agosto",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Septiembre",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Octubre",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Noviembre",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
-        ventas["Meses"].append(Sale("Diciembre",fecha_stats__month=mes+1,fecha_stats__year=datetime.now().year).aggregate(Sum('amount'))['amount__sum'])
+        fecha_mes=registrosci.values("Enero",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Febrero",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Marzo",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Abril",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Mayo",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Junio",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Julio",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Agosto",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Septiembre",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Octubre",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Noviembre",date(date__month=mes+1, date__year=datetime.now().year))
+        fecha_mes=registrosci.values("Diciembre",date(date__month=mes+1, date__year=datetime.now().year))
+
+        ventas["Meses"].append("Enero"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Febrero"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Marzo"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Abril"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Mayo"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Junio"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Julio"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Agosto"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Septiembre"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Octubre"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Noviembre"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        ventas["Meses"].append("Diciembre"(DetailSale.objects.aggregate(Sum('amount'))['amount__sum']))
+        
         for k,item in enumerate(ventas["Meses"]):
             if item==None:
                 ventas["Meses"][k]=0
@@ -106,6 +108,7 @@ def index_admin(request):
         'location':location,
         'registros_stats':registros_stats,
         'fecha_stats':fecha_stats,
+        'fecha_mes':fecha_mes,
         'valor':valor,
         'total_registros':total_registros,
         'ventas':ventas

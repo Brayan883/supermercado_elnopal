@@ -36,14 +36,16 @@
             <div class="d-none" id="data-area">{% for tag in valor %}{{tag.total_registros}},{% endfor %}</div>
 
             <!-- Datos chart bar-->
-            <div class="d-none" id="data-bar">{% for tag in valor %}{{tag.total_registros}},{% endfor %}</div>
-            <div class="d-none" id="data-bar">{% for tag in valor %}{{tag.total_registros}},{% endfor %}</div>
+            <div class="d-none" id="data-bar">{% for tag in fecha_mes %}{{tag.date}},{% endfor %}</div>
+            <div class="d-none" id="data-bar">{% for mes in ventas.items %}{{mes.ventas}},{% endfor %}</div>
 
 
-            <div class="d-none" id="data-bar">{% for tag in valor %}{{tag.total_registros}},{% endfor %}</div>
-            {% for mes,venta in ventas.items %}
+            {% comment %} <div class="d-none" id="data-bar">{% for tag in valor %}{{tag.total_registros}},{% endfor %}</div> {% endcomment %}
+
+
+            {% comment %} {% for mes,venta in ventas.items %}
             <div class="d-none" id="data-area-{{mes}}">{{venta}}</div>
-            {% endfor %}
+            {% endfor %} {% endcomment %}
             
         </div>
     </section>
